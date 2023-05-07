@@ -1,0 +1,365 @@
+import:
+  # - ~/.config/alacritty/dracula.yml
+  # - ~/.config/alacritty/gruvbox-flat.yaml
+  - ~/.config/alacritty/gruvbox.yaml
+  # - ~/.config/alacritty/xterm-theme.yaml
+  # - ~/.config/alacritty/nord.yaml
+  # - ~/.config/alacritty/kanagawa.yaml
+  # - ~/.config/alacritty/tokyonight-night.yaml
+  # - ~/.config/alacritty/catppuccin.yaml
+  # - ~/.config/alacritty/rose-pine.yaml
+
+env:
+  TERM: xterm-256color
+
+input_delay: 0
+window:
+  dimensions:
+    columns: 130
+    lines: 45
+  position:
+    x: 500
+    y: 400
+  padding:
+    x: 4
+    y: 4
+  dynamic_padding: false
+  decorations: none
+  startup_mode: Windowed
+  dynamic_title: false
+  opacity: 1
+scrolling:
+  history: 10000
+  multiplier: 8
+
+# Font configuration
+font:
+  normal:
+    family: 'JetBrainsMono Nerd Font'
+    style: Regular
+  bold:
+    family: 'JetBrainsMono Nerd Font'
+    style: Bold
+  italic:
+    family: 'JetBrainsMono Nerd Font'
+    style: Italic
+  size: 16
+
+draw_bold_text_with_bright_colors: false
+
+# Bell
+bell:
+  animation: EaseOutExpo
+  duration: 0
+selection:
+  # This string contains all characters that are used as separators for "semantic words" in Alacritty.
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  save_to_clipboard: true
+cursor:
+  style:
+    shape: Block
+    blinking: Always
+  vi_mode_style:
+    shape: Block
+    blinking: Always
+  blink_interval: 550
+  blink_timeout: 5
+  thickness: 0.20
+  unfocused_hollow: false
+vi_mode_cursor:
+  text: CellBackground
+  cursor: CellForeground
+
+
+# Live config reload (changes require restart)
+live_config_reload: true
+
+shell:
+  program: zsh
+  args:
+    - --login
+    # - -c
+    # - /opt/homebrew/bin/tmux
+
+mouse:
+  hide_when_typing: true
+
+# Key bindings
+#
+# Key bindings are specified as a list of objects. For example, this is the
+# default paste binding:
+#
+# `- { key: V, mods: Control|Shift, action: Paste }`
+#
+# Each key binding will specify a:
+#
+# - `key`: Identifier of the key pressed
+#
+#    - A-Z
+#    - F1-F24
+#    - Key0-Key9
+#
+#    A full list with available key codes can be found here:
+#    https://docs.rs/glutin/*/glutin/event/enum.VirtualKeyCode.html#variants
+#
+#    Instead of using the name of the keys, the `key` field also supports using
+#    the scancode of the desired key. Scancodes have to be specified as a
+#    decimal number. This command will allow you to display the hex scancodes
+#    for certain keys:
+#
+#       `showkey --scancodes`.
+#
+# Then exactly one of:
+#
+# - `chars`: Send a byte sequence to the running application
+#
+#    The `chars` field writes the specified string to the terminal. This makes
+#    it possible to pass escape sequences. To find escape codes for bindings
+#    like `PageUp` (`"\x1b[5~"`), you can run the command `showkey -a` outside
+#    of tmux. Note that applications use terminfo to map escape sequences back
+#    to keys. It is therefore required to update the terminfo when changing an
+#    escape sequence.
+#
+# - `action`: Execute a predefined action
+#
+#   - ToggleViMode
+#   - SearchForward
+#       Start searching toward the right of the search origin.
+#   - SearchBackward
+#       Start searching toward the left of the search origin.
+#   - Copy
+#   - Paste
+#   - IncreaseFontSize
+#   - DecreaseFontSize
+#   - ResetFontSize
+#   - ScrollPageUp
+#   - ScrollPageDown
+#   - ScrollHalfPageUp
+#   - ScrollHalfPageDown
+#   - ScrollLineUp
+#   - ScrollLineDown
+#   - ScrollToTop
+#   - ScrollToBottom
+#   - ClearHistory
+#       Remove the terminal's scrollback history.
+#   - Hide
+#       Hide the Alacritty window.
+#   - Minimize
+#       Minimize the Alacritty window.
+#   - Quit
+#       Quit Alacritty.
+#   - ToggleFullscreen
+#   - SpawnNewInstance
+#       Spawn a new instance of Alacritty.
+#   - ClearLogNotice
+#       Clear Alacritty's UI warning and error notice.
+#   - ClearSelection
+#       Remove the active selection.
+#   - ReceiveChar
+#   - None
+#
+#   (`mode: Vi` only):
+#   - Open
+#       Open URLs at the cursor location with the launcher configured in `url.launcher`.
+#   - Up
+#       Move the vi mode cursor up by one line.
+#   - Down
+#       Move the vi mode cursor down by one line.
+#   - Left
+#       Move the vi mode cursor left by one character.
+#   - Right
+#       Move the vi mode cursor right by one character.
+#   - First
+#       Move the vi mode cursor to the start of the line, searching across newlines if it is already at the beginning.
+#   - Last
+#       Move the vi mode cursor to the end of the line, searching across newlines if it is already at the end.
+#   - FirstOccupied
+#       Move the vi mode cursor to the first non-empty cell in this line, searching across newlines if it is already at the first one.
+#   - High
+#       Move the vi mode cursor to the top of the screen.
+#   - Middle
+#       Move the vi mode cursor to the middle of the screen.
+#   - Low
+#       Move the vi mode cursor to the bottom of the screen.
+#   - SemanticLeft
+#       Move the vi mode cursor to the start of the previous semantically separated word.
+#   - SemanticRight
+#       Move the vi mode cursor to the start of the next semantically separated word.
+#   - SemanticLeftEnd
+#       Move the vi mode cursor to the end of the previous semantically separated word.
+#   - SemanticRightEnd
+#       Move the vi mode cursor to the end of the next semantically separated word.
+#   - WordLeft
+#       Move the vi mode cursor to the start of the previous whitespace separated word.
+#   - WordRight
+#       Move the vi mode cursor to the start of the next whitespace separated word.
+#   - WordLeftEnd
+#       Move the vi mode cursor to the end of the previous whitespace separated word.
+#   - WordRightEnd
+#       Move the vi mode cursor to the end of the next whitespace separated word.
+#   - Bracket
+#       Move the vi mode cursor to the next character that matches the bracket at the cursor's
+#       current location.
+#   - ToggleNormalSelection
+#   - ToggleLineSelection
+#   - ToggleBlockSelection
+#   - ToggleSemanticSelection
+#       Toggle semantic selection based on `selection.semantic_escape_chars`.
+#   - SearchNext
+#       Jump to the beginning of the next match.
+#   - SearchPrevious
+#       Jump to the beginning of the previous match.
+#   - SearchStart
+#       Jump to the next start of a match to the left of the vi mode cursor.
+#   - SearchEnd
+#       Jump to the next end of a match to the left of the vi mode cursor.
+#
+#   (macOS only):
+#   - ToggleSimpleFullscreen
+#       Enter fullscreen without occupying another space.
+#
+#   (Linux/BSD only):
+#   - CopySelection
+#       Copy from the selection buffer.
+#   - PasteSelection
+#       Paste from the selection buffer.
+#
+# - `command`: Fork and execute a specified command plus arguments
+#
+#    The `command` field must be a map containing a `program` string and an
+#    `args` array of command line parameter strings. For example:
+#       `{ program: "alacritty", args: ["-e", "vttest"] }`
+#
+# And optionally:
+#
+# - `mods`: Key modifiers to filter binding actions
+#
+#    - Command
+#    - Control
+#    - Option
+#    - Super
+#    - Shift
+#    - Alt
+#
+#    Multiple `mods` can be combined using `|` like this:
+#       `mods: Control|Shift`.
+#    Whitespace and capitalization are relevant and must match the example.
+#
+# - `mode`: Indicate a binding for only specific terminal reported modes
+#
+#    This is mainly used to send applications the correct escape sequences
+#    when in different modes.
+#
+#    - AppCursor
+#    - AppKeypad
+#    - Alt
+#    - Vi
+#
+#    A `~` operator can be used before a mode to apply the binding whenever
+#    the mode is *not* active, e.g. `~Alt`.
+#
+# Bindings are always filled by default, but will be replaced when a new
+# binding with the same triggers is defined. To unset a default binding, it can
+# be mapped to the `ReceiveChar` action. Alternatively, you can use `None` for
+# a no-op if you do not wish to receive input characters for that binding.
+#
+# If the same trigger is assigned to multiple actions, all of them are executed
+# in the order they were defined in.
+key_bindings:
+  #- { key: Paste,                                action: Paste          }
+  #- { key: Copy,                                 action: Copy           }
+  - { key: L,         mods: Control,             action: ClearLogNotice }
+  - { key: L,         mods: Control, mode: ~Vi,  chars: "\x0c"          }
+  #- { key: PageUp,    mods: Shift,   mode: ~Alt, action: ScrollPageUp,  }
+  #- { key: PageDown,  mods: Shift,   mode: ~Alt, action: ScrollPageDown }
+  #- { key: Home,      mods: Shift,   mode: ~Alt, action: ScrollToTop,   }
+  #- { key: End,       mods: Shift,   mode: ~Alt, action: ScrollToBottom }
+
+  # Vi Mode
+  #- { key: Space,  mods: Shift|Control, mode: Vi, action: ScrollToBottom          }
+  #- { key: Space,  mods: Shift|Control,           action: ToggleViMode            }
+  #- { key: Escape,                      mode: Vi, action: ClearSelection          }
+  #- { key: I,                           mode: Vi, action: ScrollToBottom          }
+  #- { key: I,                           mode: Vi, action: ToggleViMode            }
+  #- { key: C,      mods: Control,       mode: Vi, action: ToggleViMode            }
+  #- { key: Y,      mods: Control,       mode: Vi, action: ScrollLineUp            }
+  #- { key: E,      mods: Control,       mode: Vi, action: ScrollLineDown          }
+  #- { key: G,                           mode: Vi, action: ScrollToTop             }
+  - { key: G,      mods: Shift,         mode: Vi, action: ScrollToBottom          }
+  - { key: B,      mods: Control,       mode: Vi, action: ScrollPageUp            }
+  - { key: F,      mods: Control,       mode: Vi, action: ScrollPageDown          }
+  - { key: U,      mods: Control,       mode: Vi, action: ScrollHalfPageUp        }
+  - { key: D,      mods: Control,       mode: Vi, action: ScrollHalfPageDown      }
+  - { key: Y,                           mode: Vi, action: Copy                    }
+  - { key: Y,                           mode: Vi, action: ClearSelection          }
+  - { key: Copy,                        mode: Vi, action: ClearSelection          }
+  - { key: V,                           mode: Vi, action: ToggleNormalSelection   }
+  #- { key: V,      mods: Shift,         mode: Vi, action: ToggleLineSelection     }
+  #- { key: V,      mods: Control,       mode: Vi, action: ToggleBlockSelection    }
+  #- { key: V,      mods: Alt,           mode: Vi, action: ToggleSemanticSelection }
+  #- { key: Return,                      mode: Vi, action: Open                    }
+  #- { key: K,                           mode: Vi, action: Up                      }
+  #- { key: J,                           mode: Vi, action: Down                    }
+  #- { key: H,                           mode: Vi, action: Left                    }
+  #- { key: L,                           mode: Vi, action: Right                   }
+  #- { key: Up,                          mode: Vi, action: Up                      }
+  #- { key: Down,                        mode: Vi, action: Down                    }
+  #- { key: Left,                        mode: Vi, action: Left                    }
+  #- { key: Right,                       mode: Vi, action: Right                   }
+  #- { key: Key0,                        mode: Vi, action: First                   }
+  #- { key: Key4,   mods: Shift,         mode: Vi, action: Last                    }
+  #- { key: Key6,   mods: Shift,         mode: Vi, action: FirstOccupied           }
+  #- { key: H,      mods: Shift,         mode: Vi, action: High                    }
+  #- { key: M,      mods: Shift,         mode: Vi, action: Middle                  }
+  #- { key: L,      mods: Shift,         mode: Vi, action: Low                     }
+  #- { key: B,                           mode: Vi, action: SemanticLeft            }
+  #- { key: W,                           mode: Vi, action: SemanticRight           }
+  #- { key: E,                           mode: Vi, action: SemanticRightEnd        }
+  #- { key: B,      mods: Shift,         mode: Vi, action: WordLeft                }
+  #- { key: W,      mods: Shift,         mode: Vi, action: WordRight               }
+  #- { key: E,      mods: Shift,         mode: Vi, action: WordRightEnd            }
+  #- { key: Key5,   mods: Shift,         mode: Vi, action: Bracket                 }
+  #- { key: Slash,                       mode: Vi, action: SearchForward           }
+  #- { key: Slash,  mods: Shift,         mode: Vi, action: SearchBackward          }
+  #- { key: N,                           mode: Vi, action: SearchNext              }
+  #- { key: N,      mods: Shift,         mode: Vi, action: SearchPrevious          }
+
+  # (macOS only)
+  #- { key: K,      mods: Command, mode: ~Vi, chars: "\x0c"            }
+  - { key: Key0,   mods: Command,            action: ResetFontSize    }
+  - { key: Equals, mods: Command,            action: IncreaseFontSize }
+  # - { key: Add,    mods: Command,            action: IncreaseFontSize }
+  - { key: Minus,  mods: Command,            action: DecreaseFontSize }
+  - { key: K,      mods: Command,            action: ClearHistory     }
+  - { key: V,      mods: Command,            action: Paste            }
+  - { key: C,      mods: Command,            action: Copy             }
+  - { key: C,      mods: Command, mode: Vi,  action: ClearSelection   }
+  - { key: H,      mods: Command,            action: Hide             }
+  - { key: M,      mods: Command,            action: Minimize         }
+  - { key: Q,      mods: Command,            action: Quit             }
+#  - { key: W,      mods: Command,            action: Quit             }
+  - { key: Key1,   mods: Command,            chars: "\x01\x30"        }
+  - { key: Key2,   mods: Command,            chars: "\x01\x31"        }
+  - { key: Key3,   mods: Command,            chars: "\x01\x32"        }
+  - { key: Key4,   mods: Command,            chars: "\x01\x33"        }
+  - { key: Key5,   mods: Command,            chars: "\x01\x34"        }
+  - { key: Key6,   mods: Command,            chars: "\x01\x35"        }
+  - { key: Key7,   mods: Command,            chars: "\x01\x36"        }
+  - { key: Key8,   mods: Command,            chars: "\x01\x37"        }
+  - { key: Key9,   mods: Command,            chars: "\x01\x38"        }
+  - { key: N,      mods: Command,            action: SpawnNewInstance }
+  - { key: F,      mods: Command|Control,    action: ToggleFullscreen }
+  - { key: F,      mods: Command,            action: SearchForward    }
+  - { key: B,      mods: Command,            action: SearchBackward   }
+  - { key: D,      mods: Command,            chars: "\x01\x25"        }
+  - { key: D,      mods: Command|Shift,      chars: "\x01\x2d"        }
+  - { key: Up,     mods: Command,            chars: "\x01\x1b\x5b\x41"}
+  - { key: Down,   mods: Command,            chars: "\x01\x1b\x5b\x42"}
+  - { key: Right,  mods: Command,            chars: "\x01\x1b\x5b\x43"}
+  - { key: Left,   mods: Command,            chars: "\x01\x1b\x5b\x44"}
+  - { key: P,      mods: Command|Shift,      chars: "\x01\x70"        }
+  - { key: P,      mods: Command,            chars: "\x01\x6e"        }
+  - { key: Comma,  mods: Command,            chars: "\x01\x2c"        }
+

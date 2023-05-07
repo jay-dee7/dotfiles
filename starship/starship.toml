@@ -1,0 +1,102 @@
+[package]
+format = """
+$username\
+$hostname\
+$shlvl\
+$directory\
+$vcsh\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$package\
+$golang\
+$rust\
+$c\
+$node\
+$terraform\
+$env_var\
+$cmd_duration\
+$time\
+$status\
+$shell\
+$character"""
+
+[username]
+style_user = "green bold"
+style_root = "red bold"
+format = "[$user]($style) "
+disabled = false
+show_always = true
+
+[character]
+success_symbol = "[➜](bold green) "
+error_symbol = "[✗](bold red) "
+
+[cmd_duration]
+min_time = 100
+format = "took [$duration](bold yellow)"
+
+[directory]
+truncation_length = 8
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = "🌱 "
+truncation_length = 20
+truncation_symbol = "..."
+
+[git_commit]
+commit_hash_length = 8
+tag_symbol = "🔖 "
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+cherry_pick = "[🍒 PICKING](bold red)"
+
+[git_status]
+conflicted = "🏳"
+ahead = "🏎💨"
+behind = "😰"
+diverged = "😵"
+untracked = "🤷‍"
+stashed = "📦"
+modified = "📝"
+staged = '[++\($count\)](green)'
+renamed = "👅"
+deleted = "🗑"
+
+# ~/.config/starship.toml
+
+[line_break]
+disabled = false
+
+[golang]
+format = "via [🏎💨 $version](bold cyan) "
+
+# [kubernetes]
+# format = 'on [⛵ $context \($namespace\)](dimmed green) '
+# disabled = false
+# [kubernetes.context_aliases]
+# "dev.local.cluster.k8s" = "dev"
+
+[lua]
+format = "via [🌕 $version](bold blue) "
+
+[nodejs]
+format = 'via [🤖 $version](bold green) '
+detect_extensions = ['js', 'mjs', 'cjs', 'ts', 'mts', 'cts', 'svelte']
+
+[rust]
+format = "via [🦀 $version](red bold)"
+
+[c]
+format = 'via [$name $version]($style)'
+
+# [os]
+# format = "on [($name )]($style)"
+# style = "bold blue"
+# disabled = false
+#
+# [os.symbols]
+# Macos = "🍎 "

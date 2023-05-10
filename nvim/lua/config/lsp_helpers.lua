@@ -35,8 +35,12 @@ lsp_helpers.on_attach = function(client, bufnr)
         -- buf_set_keymap('n', "ca", rust_tools.code_action_group.code_action_group, opts)
     end
     if filetype == 'go' then
-        vim.cmd [[autocmd BufWritePre <buffer> :lua require('config.helpers').goimports(2000)]]
+        -- vim.cmd [[autocmd BufWritePre <buffer> :lua require('config.helpers').goimports(2000)]]
         vim.cmd [[autocmd BufEnter,BufNewFile,BufRead <buffer> map <buffer> <leader>fs <cmd>lua require('telescope.builtin').lsp_workspace_symbols { query = vim.fn.input("Query: ") }<cr>]]
+    end
+
+    if filetype == 'svelte' then
+        buf_set_keymap("FF", ':PrettierAsync<CR>')
     end
 
     if filetype == 'typescriptreact'
@@ -58,6 +62,7 @@ lsp_helpers.on_attach = function(client, bufnr)
         buf_set_keymap("ru", '<cmd>lua require("typescript").actions.removeUnused()<CR>')
         buf_set_keymap("rf", ':TypescriptRenameFile<CR>')
         buf_set_keymap("gd", ':TypescriptGoToSourceDefinition<CR>')
+        buf_set_keymap("FF", ':PrettierAsync<CR>')
 
         vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
             vim.lsp.diagnostic.on_publish_diagnostics,

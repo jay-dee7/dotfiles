@@ -1,7 +1,6 @@
 return {
     'nvim-lualine/lualine.nvim',
-    config = function ()
-
+    config = function()
         local lualine = require('lualine')
         local conditions = {
             buffer_not_empty = function()
@@ -24,7 +23,7 @@ return {
                 -- Disable sections and component separators
                 component_separators = '',
                 section_separators = '⚡️',
-                -- theme = 'gruvbox',
+                theme = 'gruvbox',
             },
             sections = {
                 -- these are to remove the defaults
@@ -132,7 +131,7 @@ return {
         }
         -- Add components to right sections
         ins_right {
-            'o:encoding', -- option component same as &encoding in viml
+            'o:encoding',       -- option component same as &encoding in viml
             fmt = string.upper, -- I'm not sure why it's upper case either ;)
             cond = conditions.hide_in_width,
         }

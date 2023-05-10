@@ -240,3 +240,8 @@ nvim_lsp.pyright.setup {
     on_attach = lsp_helpers.on_attach,
     capabilities = capabilities,
 }
+
+nvim_lsp.taplo.setup {
+    on_attach = lsp_helpers.on_attach,
+    capabilities = capabilities,
+}

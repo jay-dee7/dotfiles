@@ -38,6 +38,7 @@ return {
                 "bufls",
                 "prismals",
                 "sqlls",
+                "taplo",
             },
         })
         vim.cmd [[set shortmess+=c]]

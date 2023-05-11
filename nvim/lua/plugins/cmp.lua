@@ -19,6 +19,7 @@ return {
         'saadparwaiz1/cmp_luasnip',     -- Optional
         'hrsh7th/cmp-nvim-lua',         -- Optional
         'hrsh7th/cmp-nvim-lsp-signature-help',
+        'rcarriga/cmp-dap',
         {
             "roobert/tailwindcss-colorizer-cmp.nvim",
             -- optionally, override the default options:
@@ -63,6 +64,10 @@ return {
         }
 
         cmp.setup({
+            enabled = function()
+                return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+                    or require("cmp_dap").is_dap_buffer()
+            end,
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
@@ -85,6 +90,7 @@ return {
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
                 { name = "path" },
+                { name = 'crates' },
                 { name = 'buffer' },
                 { name = 'nvim_lsp_signature_help' },
             }),
@@ -136,6 +142,12 @@ return {
                     })[entry.source.name]
                     return vim_item
                 end
+            },
+        })
+
+        cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+            sources = {
+                { name = "dap" },
             },
         })
     end

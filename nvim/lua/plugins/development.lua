@@ -17,6 +17,8 @@ return {
         cmd = { 'Prettier', 'PrettierAsync' },
     },
     config = function()
-        require("neodev").setup({})
+        require("neodev").setup({
+            library = { plugins = { "nvim-dap-ui", "nvim-dap" }, types = true }
+        })
     end
 }

@@ -43,7 +43,7 @@ font:
   italic:
     family: 'JetBrainsMono Nerd Font'
     style: Italic
-  size: 16
+  size: 15
 
 draw_bold_text_with_bright_colors: false
 

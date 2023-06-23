@@ -44,9 +44,9 @@ return {
                 "lua_ls",
                 "yamlls",
                 "bufls",
-                "prismals",
                 "sqlls",
                 "taplo",
+                "clangd",
 
 
                 -- Debuggers

@@ -13,6 +13,8 @@ return {
             ensure_installed = {
                 'go',
                 'gomod',
+                'gosum',
+                'llvm',
                 'json',
                 'lua',
                 'markdown',
@@ -28,6 +30,13 @@ return {
                 'css',
                 'sql',
                 'http',
+                'c',
+                'cpp',
+                'capnp',
+                'cmake',
+                'diff',
+
+
             },
             auto_pairs = {
                 enable = true,
@@ -73,6 +82,7 @@ return {
             }
         }
 
+        require('treesitter-context').setup({})
         local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
         parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx", 'ts' }
         parser_config.hcl.filetype_to_parsername = { "hcl", "tf" }

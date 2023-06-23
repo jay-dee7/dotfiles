@@ -1,6 +1,6 @@
 return {
-	'theprimeagen/harpoon',
-    config = function ()
+    'theprimeagen/harpoon',
+    config = function()
         local mark = require("harpoon.mark")
         local ui = require("harpoon.ui")
 
@@ -18,6 +18,7 @@ return {
         vim.keymap.set("n", "<leader>m2", function() ui.nav_file(2) end)
         vim.keymap.set("n", "<leader>m3", function() ui.nav_file(3) end)
         vim.keymap.set("n", "<leader>m4", function() ui.nav_file(4) end)
+        vim.keymap.set("n", "<leader>m5", function() ui.nav_file(5) end)
         vim.keymap.set("n", "<leader>ms", ui.toggle_quick_menu)
     end
 }

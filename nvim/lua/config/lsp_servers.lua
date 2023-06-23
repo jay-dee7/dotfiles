@@ -152,7 +152,24 @@ nvim_lsp.tailwindcss.setup {
 
 nvim_lsp.svelte.setup {
     on_attach = lsp_helpers.on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    settings = {
+        svelte = {
+            plugin = {
+                html   = {
+                    completions = { enable = true, emmet = false },
+                    tag_complete = { enable = true }
+                },
+                svelte = {
+                    completions = { enable = true, emmet = false },
+                    default_script_language = "typescript",
+                },
+                css    = {
+                    completions = { enable = true, emmet = false }
+                },
+            },
+        }
+    }
 }
 
 nvim_lsp.vuels.setup {
@@ -242,6 +259,11 @@ nvim_lsp.pyright.setup {
 }
 
 nvim_lsp.taplo.setup {
+    on_attach = lsp_helpers.on_attach,
+    capabilities = capabilities,
+}
+
+nvim_lsp.clangd.setup {
     on_attach = lsp_helpers.on_attach,
     capabilities = capabilities,
 }

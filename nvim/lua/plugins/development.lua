@@ -6,6 +6,7 @@ return {
     'windwp/nvim-ts-autotag',
     'prisma/vim-prisma',
     'cespare/vim-toml',
+    'ThePrimeagen/vim-be-good',
     -- Lazy Loaded plugins
     -- use { 'TimUntersberger/neogit', dependencies = 'nvim-lua/plenary.nvim'}
     { 'jremmen/vim-ripgrep',         lazy = true, cmd = { 'Rg' } },

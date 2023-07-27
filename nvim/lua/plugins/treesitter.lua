@@ -23,6 +23,7 @@ return {
                 'svelte',
                 'toml',
                 'tsx',
+                'typescript',
                 'yaml',
                 'dockerfile',
                 'graphql',

@@ -35,8 +35,7 @@ return {
                 'capnp',
                 'cmake',
                 'diff',
-
-
+                'hurl',
             },
             auto_pairs = {
                 enable = true,

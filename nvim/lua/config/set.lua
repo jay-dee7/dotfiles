@@ -47,7 +47,6 @@ vim.g.netrw_winsize                         = 30
 vim.g.ft                                    = 'tmux tw=0 nowrap:'
 vim.g.fugitive_git_executable               = '/opt/homebrew/bin/hub'
 vim.g.completion_matching_strategy_list     = { 'exact', 'substring', 'fuzzy' }
-vim.g.svelte_preprocessors                  = { 'typescript' }
 vim.g.rust_clip_command                     = 'pbcopy'
 vim.g['prettier#quickfix_enabled']          = 0
 vim.g['prettier#autoformat_require_pragma'] = 0
@@ -60,3 +59,9 @@ vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', { undercurl = true })
 vim.api.nvim_set_hl(0, 'DiagnosticUnderline', { undercurl = true })
 vim.api.nvim_set_hl(0, 'DiagnosticUnderline', { undercurl = true })
 vim.opt.isfname:append("@-@")
+
+vim.filetype.add({
+    extension = {
+        hurl = "hurl"
+    }
+})

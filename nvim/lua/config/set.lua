@@ -62,6 +62,7 @@ vim.opt.isfname:append("@-@")
 
 vim.filetype.add({
     extension = {
-        hurl = "hurl"
+        hurl = "hurl",
+        postcss = "css"
     }
 })

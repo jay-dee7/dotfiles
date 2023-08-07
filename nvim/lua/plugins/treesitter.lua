@@ -29,6 +29,7 @@ return {
                 'graphql',
                 'comment',
                 'css',
+                'scss',
                 'sql',
                 'http',
                 'c',

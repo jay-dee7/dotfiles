@@ -38,6 +38,15 @@ return {
                 'cmake',
                 'diff',
                 'hurl',
+                'dot',
+                'bash',
+                'git_config',
+                'gitattributes',
+                'gitcommit',
+                'gitignore',
+                'zig',
+                'vim',
+                'vimdoc',
             },
             auto_pairs = {
                 enable = true,
@@ -68,7 +77,7 @@ return {
             },
             context_commentstring = {
                 enable = true,
-                enable_autocmd = false,
+                enable_autocmd = true,
             },
             refactor = {
                 highlight_definitions = false,

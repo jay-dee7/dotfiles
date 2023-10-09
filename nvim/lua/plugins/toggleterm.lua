@@ -30,7 +30,7 @@ return {
                     return math.floor(vim.o.columns * 0.90)
                 end,
                 height = function()
-                    return math.floor(vim.o.lines * 0.35)
+                    return math.floor(vim.o.lines * 0.65)
                 end
             },
             winbar = {

@@ -22,13 +22,14 @@ return {
         local trouble = require("trouble.providers.telescope")
         local actions = require('telescope.actions')
         local themes = require('telescope.themes')
+        local monorepo = require('monorepo')
         local function get_ivy()
             return themes.get_ivy({
                 previewer = true,
                 layout_config = {
-                    height = 35,
+                    height = 65,
                     prompt_position = "bottom",
-                    preview_width = 0.55
+                    preview_width = 0.65
                 },
             })
         end
@@ -89,10 +90,10 @@ return {
             },
             extensions = {
                 fzf = {
-                    fuzzy = true,         -- false will only do exact matching
+                    fuzzy = true,                   -- false will only do exact matching
                     override_generic_sorter = true, -- override the generic sorter
-                    override_file_sorter = true, -- override the file sorter
-                    case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+                    override_file_sorter = true,    -- override the file sorter
+                    case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
                 },
                 file_browser = {
                     mappings = {
@@ -122,6 +123,7 @@ return {
         require("telescope").load_extension("file_browser")
         require("telescope").load_extension("live_grep_args")
         require('telescope').load_extension('gh')
+        require('telescope').load_extension('monorepo')
         -- require("telescope").load_extension("git_worktree")
 
         local project_files = function()
@@ -163,7 +165,9 @@ return {
         vim.keymap.set('n', '<leader>jb', function() builtin.git_branches(get_ivy()) end,
             { noremap = true, silent = true })
         vim.keymap.set('n', '<leader>js', function() builtin.git_status(get_ivy()) end, { noremap = true, silent = true })
-
+        vim.keymap.set('n', '<leader>m', function() extensions.monorepo.monorepo(get_ivy()) end,
+            { noremap = true, silent = true })
+        vim.keymap.set('n', '<leader>n', function() monorepo.toggle_project() end, { noremap = true, silent = true })
         -- vim.api.nvim_create_autocmd("VimEnter", {
         --   callback = function()
         --     if vim.fn.argv(0) == "" then

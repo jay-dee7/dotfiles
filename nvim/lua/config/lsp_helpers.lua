@@ -52,13 +52,10 @@ lsp_helpers.on_attach = function(client, bufnr)
 		or filetype == "vue"
 		or filetype == "astro" then
 		client.server_capabilities.document_formatting = true
-		buf_set_keymap("gO", '<cmd>lua require("typescript").actions.addMissingImports()<CR>')
-		buf_set_keymap("gm", '<cmd>TSLspImportAll<CR>')
-		buf_set_keymap("fa", '<cmd>require("typescript").actions.fixAll()<CR>')
-		buf_set_keymap("ru", '<cmd>lua require("typescript").actions.removeUnused()<CR>')
-		buf_set_keymap("rf", ':TypescriptRenameFile<CR>')
-		buf_set_keymap("gd", ':TypescriptGoToSourceDefinition<CR>')
-		buf_set_keymap("FF", ':PrettierAsync<CR>')
+		buf_set_keymap("gO", ':TSToolsAddMissingImports<CR>')
+		buf_set_keymap("fa", ':TSToolsFixAll<CR>')
+		buf_set_keymap("ru", ':TSToolsRemoveUnusedImports<CR>')
+		buf_set_keymap("rf", ':TSToolsRenameFile<CR>')
 
 		vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 			vim.lsp.diagnostic.on_publish_diagnostics,

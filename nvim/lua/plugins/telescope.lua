@@ -10,21 +10,23 @@ return {
 		{ 'nvim-telescope/telescope-file-browser.nvim' },
 		{ 'nvim-telescope/telescope-dap.nvim' },
 		{ 'nvim-telescope/telescope-live-grep-args.nvim' },
-		{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+		{ 'nvim-telescope/telescope-fzf-native.nvim',    build = 'make' },
 		{ 'imNel/monorepo.nvim' },
+		{ 'ThePrimeagen/git-worktree.nvim' },
 	},
 	config = function()
 		local builtin = require('telescope.builtin')
 		local lga_actions = require('telescope-live-grep-args.actions')
-		local extensions = require('telescope').extensions
-		local fb_actions = extensions.file_browser.actions
 		local sorters = require('telescope.sorters')
 		local previewers = require('telescope.previewers')
 		local trouble = require('trouble.providers.telescope')
 		local actions = require('telescope.actions')
+		local extensions = require('telescope').extensions
+		local telescope = require('telescope')
+		local fb_actions = extensions.file_browser.actions
 		local monorepo = require('monorepo')
 
-		require('telescope').setup({
+		telescope.setup({
 			defaults = {
 				mappings = {
 					i = {
@@ -63,15 +65,15 @@ return {
 						-- prompt_position = "bottom",
 						-- preview_cutoff = 120,
 					},
-					horizontal = {
-						mirror = false,
-						width = 0.90,
-						height = 0.60,
-						preview_height = 0.7,
-						preview_width = 0.6,
-						prompt_position = 'bottom',
-						preview_cutoff = 120,
-					},
+					-- horizontal = {
+					-- 	mirror = false,
+					-- 	width = 0.90,
+					-- 	height = 0.60,
+					-- 	preview_height = 0.7,
+					-- 	preview_width = 0.6,
+					-- 	prompt_position = 'bottom',
+					-- 	preview_cutoff = 120,
+					-- },
 				},
 				file_ignore_patterns = { '.idea/*', 'cpu.pprof', '*.prof', '.kvstore', 'vendor', 'node_modules' },
 				winblend = 0,
@@ -89,7 +91,7 @@ return {
 			},
 			extensions = {
 				fzf = {
-					fuzzy = true, -- false will only do exact matching
+					fuzzy = true,    -- false will only do exact matching
 					override_generic_sorter = true, -- override the generic sorter
 					override_file_sorter = true, -- override the file sorter
 					case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
@@ -114,84 +116,53 @@ return {
 					},
 				},
 			},
+			package_info = {
+				theme = "ivy"
+			}
 		})
 
 		monorepo.setup({
 			autoload_telescope = false,
 		})
 
-		require('telescope').load_extension('fzf')
-		require('telescope').load_extension('ui-select')
-		require('telescope').load_extension('file_browser')
-		require('telescope').load_extension('live_grep_args')
-		require('telescope').load_extension('gh')
-		require('telescope').load_extension('monorepo')
-		-- require("telescope").load_extension("git_worktree")
+		telescope.load_extension('fzf')
+		telescope.load_extension('ui-select')
+		telescope.load_extension('file_browser')
+		telescope.load_extension('live_grep_args')
+		telescope.load_extension('gh')
+		telescope.load_extension('monorepo')
+		telescope.load_extension("git_worktree")
+		telescope.load_extension("package_info")
+		telescope.load_extension('harpoon')
 
 		local opts = { noremap = true, silent = true }
 
 		-- Telescope + LSP
-		vim.keymap.set('n', '<leader>fg', function()
-			builtin.lsp_definitions()
-		end, opts)
-		vim.keymap.set('n', '<leader>jm', function()
-			builtin.diagnostics()
-		end, opts)
-		vim.keymap.set('n', '<leader>ji', function()
-			builtin.lsp_implementations()
-		end, opts)
+		vim.keymap.set('n', '<leader>fg', function() builtin.lsp_definitions() end, opts)
+		vim.keymap.set('n', '<leader>jm', function() builtin.diagnostics() end, opts)
+		vim.keymap.set('n', '<leader>ji', function() builtin.lsp_implementations() end, opts)
 
 		-- Regular Telescope magic
-		vim.keymap.set('n', '<leader>tr', function()
-			extensions.live_grep_args.live_grep_args()
-		end, opts)
-		vim.keymap.set('n', '<leader>fb', function()
-			builtin.buffers()
-		end, opts)
-		vim.keymap.set('n', '<leader>fh', function()
-			builtin.help_tags()
-		end, opts)
-		vim.keymap.set('n', '<C-p>', function()
-			builtin.git_files()
-		end, opts)
-		vim.keymap.set('n', '<C-f>', function()
-			builtin.find_files()
-		end, opts)
-		vim.keymap.set('n', '<leader>sd', function()
-			builtin.diagnostics()
-		end, opts)
-		vim.keymap.set('n', '<leader>ps', function()
-			builtin.grep_string({ search = vim.fn.input('Grep> ') })
-		end)
-		vim.keymap.set('n', '<leader>sh', function()
-			builtin.search_history()
-		end, { noremap = true, silent = true })
+		vim.keymap.set('n', '<leader>tr', function() extensions.live_grep_args.live_grep_args() end, opts)
+		vim.keymap.set('n', '<leader>fb', function() builtin.buffers() end, opts)
+		vim.keymap.set('n', '<leader>fh', function() builtin.help_tags() end, opts)
+		vim.keymap.set('n', '<C-p>', function() builtin.git_files() end, opts)
+		vim.keymap.set('n', '<C-f>', function() builtin.find_files() end, opts)
+		vim.keymap.set('n', '<leader>sd', function() builtin.diagnostics() end, opts)
+		vim.keymap.set('n', '<leader>ps', function() builtin.grep_string({ search = vim.fn.input('Grep> ') }) end)
+		vim.keymap.set('n', '<leader>sh', function() builtin.search_history() end, { noremap = true, silent = true })
 
 		-- Telescope Extensions
 		vim.keymap.set('n', '<leader>jis', extensions.gh.issues, { noremap = true, silent = true })
 		vim.keymap.set('n', '<leader>jpl', extensions.gh.pull_request, { noremap = true, silent = true })
 		vim.keymap.set('n', '<leader>jgi', extensions.gh.gist, { noremap = true, silent = true })
 		vim.keymap.set('n', '<leader>gar', extensions.gh.run, { noremap = true, silent = true })
+		vim.keymap.set('n', '<leader>ms', extensions.harpoon.marks, { noremap = true, silent = true })
 
 		-- Telescope Git Stuff
-		vim.keymap.set('n', '<leader>jc', function()
-			builtin.git_commits()
-		end, { noremap = true, silent = true })
-		vim.keymap.set('n', '<leader>jb', function()
-			builtin.git_branches()
-		end, { noremap = true, silent = true })
-		vim.keymap.set('n', '<leader>js', function()
-			builtin.git_status()
-		end, { noremap = true, silent = true })
-		vim.keymap.set('n', '<leader>mt', function()
-			monorepo.toggle_project()
-		end, { noremap = true, silent = true })
-		-- vim.api.nvim_create_autocmd("VimEnter", {
-		--   callback = function()
-		--     if vim.fn.argv(0) == "" then
-		--       builtin.find_files()
-		--     end
-		--   end
-		-- })
+		vim.keymap.set('n', '<leader>jc', function() builtin.git_commits() end, { noremap = true, silent = true })
+		vim.keymap.set('n', '<leader>jb', function() builtin.git_branches() end, { noremap = true, silent = true })
+		vim.keymap.set('n', '<leader>js', function() builtin.git_status() end, { noremap = true, silent = true })
+		vim.keymap.set('n', '<leader>mt', function() monorepo.toggle_project() end, { noremap = true, silent = true })
 	end,
 }

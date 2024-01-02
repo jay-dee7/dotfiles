@@ -1,0 +1,20 @@
+{
+    "diagnostics.globals": [
+        "vim",
+        "hs",
+        "describe",
+        "it",
+        "before_each",
+        "after_each",
+        "teardown",
+        "pending",
+        "clear",
+        "Color",
+        "c",
+        "Group",
+        "g",
+        "s",
+        "RELOAD",
+        "set_terminal_keymaps"
+    ]
+}

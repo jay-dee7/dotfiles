@@ -4,7 +4,12 @@ return {
 	dependencies = {
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
-		'jose-elias-alvarez/typescript.nvim',
+		-- 'jose-elias-alvarez/typescript.nvim',
+		{
+			"pmizio/typescript-tools.nvim",
+			dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+			opts = {},
+		},
 		'simrat39/rust-tools.nvim',
 		{
 			'saecki/crates.nvim',
@@ -26,10 +31,12 @@ return {
 					package_installed = "✓",
 					package_pending = "➜",
 					package_uninstalled = "✗"
-				}
+				},
+				border = "none"
 			},
 			max_concurrent_installers = 8,
 		})
+
 		mason_config.setup({
 			ensure_installed = {
 				-- LSP Servers
@@ -54,6 +61,7 @@ return {
 				'zls',
 			},
 		})
+
 		vim.cmd [[set shortmess+=c]]
 		vim.o.completeopt = "menu,menuone,noselect"
 		vim.diagnostic.config({

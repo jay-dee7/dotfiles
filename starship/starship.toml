@@ -2,9 +2,7 @@
 format = """
 $username\
 $hostname\
-$shlvl\
 $directory\
-$vcsh\
 $git_branch\
 $git_commit\
 $git_state\
@@ -19,8 +17,7 @@ $env_var\
 $cmd_duration\
 $time\
 $status\
-$shell\
-$character"""
+$shell"""
 
 [username]
 style_user = "green bold"
@@ -66,19 +63,11 @@ staged = '[++\($count\)](green)'
 renamed = "👅"
 deleted = "🗑"
 
-# ~/.config/starship.toml
-
 [line_break]
 disabled = false
 
 [golang]
 format = "via [🏎💨 $version](bold cyan) "
-
-# [kubernetes]
-# format = 'on [⛵ $context \($namespace\)](dimmed green) '
-# disabled = false
-# [kubernetes.context_aliases]
-# "dev.local.cluster.k8s" = "dev"
 
 [lua]
 format = "via [🌕 $version](bold blue) "
@@ -93,10 +82,13 @@ format = "via [🦀 $version](red bold)"
 [c]
 format = 'via [$name $version]($style)'
 
-# [os]
-# format = "on [($name )]($style)"
-# style = "bold blue"
-# disabled = false
-#
-# [os.symbols]
-# Macos = "🍎 "
+[zig]
+symbol = '⚡️ '
+
+[status]
+disabled = false
+format = '[\[$symbol$common_meaning$signal_name$maybe_int\]]($style) '
+map_symbol = true
+
+[buf]
+symbol = '🦬 '

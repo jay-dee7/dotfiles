@@ -17,10 +17,6 @@ return {
 				'nvim-lua/plenary.nvim'
 			}
 		},
-		{
-			'creativenull/efmls-configs-nvim',
-			dependencies = { 'neovim/nvim-lspconfig' },
-		}
 	},
 	config = function()
 		local mason = require("mason");
@@ -57,8 +53,17 @@ return {
 				"sqlls",
 				"taplo",
 				"clangd",
-				"efm",
 				'zls',
+
+				-- Formatters
+				-- 'yamlfix',
+				-- 'markdownlint',
+				-- 'stylua',
+				-- 'prettierd',
+				-- 'prettier',
+				-- 'jq',
+				-- 'gomodifytags',
+				-- 'buf',
 			},
 		})
 

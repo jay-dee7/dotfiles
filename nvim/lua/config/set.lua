@@ -21,7 +21,7 @@ vim.opt.scrolloff = 16
 vim.opt.signcolumn = 'yes'
 vim.opt.updatetime = 50
 vim.opt.encoding = 'UTF-8'
-vim.opt.guifont = ':JetBrainsMono Nerd Font:h16'
+vim.opt.guifont = ':JetBrainsMono Nerd Font:h14'
 vim.opt.virtualedit = 'all'
 vim.opt.diffopt = { 'internal,filler,closeoff,vertical' }
 vim.opt.nu = true
@@ -62,11 +62,19 @@ vim.api.nvim_set_hl(0, 'DiagnosticUnderline', { undercurl = true })
 vim.opt.isfname:append('@-@')
 
 -- vim.opt.list = true
-vim.opt.listchars:append('eol:↴')
+-- vim.opt.listchars = {
+-- 	eol = '󰿄',
+-- }
 
 vim.filetype.add({
 	extension = {
 		hurl = 'hurl',
 		postcss = 'css',
+	},
+})
+
+vim.filetype.add({
+	extension = {
+		keymap = 'c',
 	},
 })

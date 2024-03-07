@@ -1,7 +1,11 @@
+# Catppuccin
+# background = 07010b
+# foreground = CDD6F4
+
+# gruvbox
 background = 0f1011
 foreground = ebdbb2
 
-# tmux bindings
 keybind = super+p=text:\x01n
 keybind = super+shift+p=text:\x01p
 keybind = super+comma=text:\x01,
@@ -14,6 +18,7 @@ keybind = super+shift+d=text:\x01-
 
 window-theme = "dark"
 confirm-close-surface = false
+copy-on-select = clipboard
 macos-option-as-alt = true
 macos-non-native-fullscreen = true
 mouse-hide-while-typing = true
@@ -25,7 +30,7 @@ clipboard-paste-protection = false
 window-decoration = false
 
 font-family = "JetBrainsMono Nerd Font"
-font-size = 16
+font-size = 14
 font-feature = zero
 font-feature = ss01
 font-feature = ss02
@@ -63,3 +68,31 @@ palette = 14=#8ec07c
 # white
 palette = 7=#a89984
 palette = 15=#ebdbb2
+
+
+# Catppuccin Mocha Theme 
+# black
+# palette = 8=#45475A
+# palette = 0=#585B70
+# red
+# palette = 9=#F38BA8
+# palette = 1=#F38BA8
+# green
+# palette = 10=#A6E3A1
+# palette = 2=#A6E3A1
+# yellow
+# palette = 11=#F9E2AF
+# palette = 3=#F9E2AF
+# blue
+# palette = 12=#89B4FA
+# palette = 4=#89B4FA
+# purple
+# palette = 13=#F5C2E7
+# palette = 5=#F5C2E7
+# aqua
+# palette = 14=#94E2D5
+# palette = 6=#94E2D5
+# white
+# palette = 15=#BAC2DE
+# palette = 7=#A6ADC8
+

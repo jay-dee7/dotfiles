@@ -1,4 +1,6 @@
 local lsp_helpers = {}
+local cmp_nvim_lsp = require('cmp_nvim_lsp')
+
 lsp_helpers.on_attach = function(client, bufnr)
 	local function buf_set_keymap(binding, cmd)
 		local opts = { noremap = true, silent = true }
@@ -26,6 +28,7 @@ lsp_helpers.on_attach = function(client, bufnr)
 	buf_set_keymap("g]", '<cmd>lua vim.diagnostic.goto_next()<CR>')
 
 	local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
+
 
 	if filetype == 'rust' then
 		buf_set_keymap("gle", "<cmd>lua vim.lsp.codelens.refresh()<CR>")
@@ -57,16 +60,22 @@ lsp_helpers.on_attach = function(client, bufnr)
 		buf_set_keymap("ru", ':TSToolsRemoveUnusedImports<CR>')
 		buf_set_keymap("rf", ':TSToolsRenameFile<CR>')
 
-		vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-			vim.lsp.diagnostic.on_publish_diagnostics,
-			{
-				underline = true,
-				virtual_text = {
-					spacing = 5,
-					severity_limit = 'Warning',
-				},
-				update_in_insert = true,
-			})
+
+		vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+			require("ts-error-translator").translate_diagnostics(err, result, ctx, config)
+			vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+		end
+
+		-- vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+		-- 	vim.lsp.diagnostic.on_publish_diagnostics,
+		-- 	{
+		-- 		underline = true,
+		-- 		virtual_text = {
+		-- 			spacing = 5,
+		-- 			severity_limit = 'Warning',
+		-- 		},
+		-- 		update_in_insert = true,
+		-- 	})
 	end
 
 	-- vim.cmd [[autocmd CursorHold <buffer> lua vim.diagnostic.open_float()]]
@@ -119,5 +128,20 @@ lsp_helpers.settings = {
 		}
 	}
 }
+
+local base_capabilities = vim.lsp.protocol.make_client_capabilities()
+base_capabilities.textDocument.completion.completionItem.snippetSupport = true
+base_capabilities.textDocument.completion.completionItem.resolveSupport = {
+	properties = {
+		'documentation',
+		'detail',
+		'additionalTextEdits',
+	},
+}
+base_capabilities.textDocument.foldingRange = {
+	dynamicRegistration = false,
+	lineFoldingOnly = true,
+}
+lsp_helpers.capabilities = cmp_nvim_lsp.default_capabilities(base_capabilities)
 
 return lsp_helpers

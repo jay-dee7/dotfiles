@@ -197,3 +197,8 @@ nvim_lsp.tailwindcss.setup({
 	on_attach = lsp_helpers.on_attach,
 	capabilities = lsp_helpers.capabilities,
 })
+
+nvim_lsp.zls.setup({
+	on_attach = lsp_helpers.on_attach,
+	capabilities = lsp_helpers.capabilities,
+})

@@ -114,7 +114,7 @@ return {
 					side_padding = 0,
 				},
 				documentation = {
-					max_height = 75,
+					max_height = 80,
 					max_width = 120,
 					border = 'rounded',
 					col_offset = 0,

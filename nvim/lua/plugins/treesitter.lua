@@ -8,6 +8,7 @@ return {
 		'nvim-treesitter/nvim-treesitter-context',
 		'nvim-treesitter/nvim-treesitter-refactor',
 		'IndianBoy42/tree-sitter-just',
+		"nushell/tree-sitter-nu",
 	},
 	config = function()
 		require('nvim-treesitter.configs').setup({
@@ -19,6 +20,7 @@ return {
 				'json',
 				'lua',
 				'markdown',
+				'markdown_inline',
 				'proto',
 				'rust',
 				'svelte',
@@ -49,6 +51,9 @@ return {
 				'vim',
 				'vimdoc',
 				'devicetree',
+				'tmux',
+				'nix',
+				'nu',
 			},
 			auto_pairs = {
 				enable = true,

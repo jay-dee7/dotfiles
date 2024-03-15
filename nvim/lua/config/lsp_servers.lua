@@ -2,8 +2,6 @@ local lsp_helpers = require('config/lsp_helpers')
 local nvim_lsp = require('lspconfig')
 local typescript = require('typescript-tools')
 
-nvim_lsp.postgres_lsp.setup({ { force_setup = true } })
-
 nvim_lsp.gopls.setup({
 	on_attach = lsp_helpers.on_attach,
 	capabilities = lsp_helpers.capabilities,

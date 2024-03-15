@@ -60,11 +60,7 @@ vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', { undercurl = true })
 vim.api.nvim_set_hl(0, 'DiagnosticUnderline', { undercurl = true })
 vim.api.nvim_set_hl(0, 'DiagnosticUnderline', { undercurl = true })
 vim.opt.isfname:append('@-@')
-
--- vim.opt.list = true
--- vim.opt.listchars = {
--- 	eol = '󰿄',
--- }
+vim.g.omni_sql_no_default_maps = 1
 
 vim.filetype.add({
 	extension = {

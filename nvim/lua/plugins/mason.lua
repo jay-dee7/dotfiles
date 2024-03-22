@@ -50,7 +50,6 @@ return {
 				"sqlls",
 				"taplo",
 				"clangd",
-				'zls',
 
 				-- Formatters
 				-- 'yamlfix',

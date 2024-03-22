@@ -179,6 +179,7 @@ nvim_lsp.clangd.setup({
 nvim_lsp.zls.setup({
 	on_attach = lsp_helpers.on_attach,
 	capabilities = lsp_helpers.capabilities,
+	settings = lsp_helpers.settings.zls,
 })
 
 nvim_lsp.terraformls.setup({
@@ -192,11 +193,6 @@ nvim_lsp.cssls.setup({
 })
 
 nvim_lsp.tailwindcss.setup({
-	on_attach = lsp_helpers.on_attach,
-	capabilities = lsp_helpers.capabilities,
-})
-
-nvim_lsp.zls.setup({
 	on_attach = lsp_helpers.on_attach,
 	capabilities = lsp_helpers.capabilities,
 })

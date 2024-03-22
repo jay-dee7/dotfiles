@@ -257,3 +257,19 @@ return {
 	),
 	-- s("zp", fmta("if err != nil {\n\treturn <err>\n}", { err = i(1, "err") })),
 })
+
+ls.add_snippets("zig", {
+	s(
+		"gpa",
+		fmta(
+			[[
+const allocator = std.heap.GeneralPurposeAllocator(.{}){};
+<finish>
+]],
+			{
+				finish = i(0),
+			}
+		)
+	),
+	-- s("zp", fmta("if err != nil {\n\treturn <err>\n}", { err = i(1, "err") })),
+})

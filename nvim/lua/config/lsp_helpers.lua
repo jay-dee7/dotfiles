@@ -126,6 +126,9 @@ lsp_helpers.settings = {
 		yaml = {
 			keyOrdering = false
 		}
+	},
+	zls = {
+		cmd = os.getenv("HOME") .. "/oss/zig/zls/zig-out/bin/zls"
 	}
 }
 

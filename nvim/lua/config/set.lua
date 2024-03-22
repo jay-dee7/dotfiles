@@ -61,6 +61,7 @@ vim.api.nvim_set_hl(0, 'DiagnosticUnderline', { undercurl = true })
 vim.api.nvim_set_hl(0, 'DiagnosticUnderline', { undercurl = true })
 vim.opt.isfname:append('@-@')
 vim.g.omni_sql_no_default_maps = 1
+vim.lsp.set_log_level("off")
 
 vim.filetype.add({
 	extension = {

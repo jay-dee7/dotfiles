@@ -40,7 +40,7 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = "🌱 "
-truncation_length = 20
+truncation_length = 48
 truncation_symbol = "..."
 
 [git_commit]
@@ -83,7 +83,7 @@ format = "via [🦀 $version](red bold)"
 format = 'via [$name $version]($style)'
 
 [zig]
-symbol = '⚡️ '
+symbol = '🦎 '
 
 [status]
 disabled = false

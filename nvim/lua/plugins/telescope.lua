@@ -54,7 +54,7 @@ return {
 				initial_mode = 'insert',
 				selection_strategy = 'row',
 				sorting_strategy = 'ascending',
-				layout_strategy = 'vertical',
+				layout_strategy = 'horizontal',
 				layout_config = {
 					vertical = {
 						mirror = false,
@@ -65,15 +65,15 @@ return {
 						-- prompt_position = "bottom",
 						-- preview_cutoff = 120,
 					},
-					-- horizontal = {
-					-- 	mirror = false,
-					-- 	width = 0.90,
-					-- 	height = 0.60,
-					-- 	preview_height = 0.7,
-					-- 	preview_width = 0.6,
-					-- 	prompt_position = 'bottom',
-					-- 	preview_cutoff = 120,
-					-- },
+					horizontal = {
+						mirror = false,
+						width = 0.90,
+						height = 0.75,
+						preview_height = 0.7,
+						preview_width = 0.6,
+						prompt_position = 'bottom',
+						preview_cutoff = 120,
+					},
 				},
 				file_ignore_patterns = { '.idea/*', 'cpu.pprof', '*.prof', '.kvstore', 'vendor', 'node_modules' },
 				winblend = 0,

@@ -24,8 +24,8 @@ return {
 				dark0_hard = '#0f1011',
 			},
 			overrides = {
-				SignColumn = { bg = '#1d2021' },
-				['@text.note'] = { bold = true, reverse = false, fg = '', bg = '#213352' },
+				SignColumn            = { bg = '#1d2021' },
+				['@text.note']        = { bold = true, reverse = false, fg = '', bg = '#213352' },
 				['@constant.builtin'] = { link = 'GruvboxPurple' },
 			},
 			dim_inactive = false,

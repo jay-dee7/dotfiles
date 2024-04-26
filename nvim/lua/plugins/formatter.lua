@@ -7,18 +7,19 @@ return {
 		conform.setup({
 			formatters_by_ft = {
 				lua = { "stylua" },
-				svelte = { "prettierd", "prettier" },
-				javascript = { "prettierd", "prettier" },
-				typescript = { "prettierd", "prettier" },
-				css = { "prettierd", "prettier" },
-				scss = { "prettierd", "prettier" },
-				json = { "prettierd", "prettier" },
-				markdown = { "prettierd", "prettier" },
+				svelte = { { "prettierd", "prettier" } },
+				javascript = { { "prettierd", "prettier" } },
+				typescript = { { "prettierd", "prettier" } },
+				css = { { "prettierd", "prettier" } },
+				scss = { { "prettierd", "prettier" } },
+				json = { { "prettierd", "prettier" } },
+				markdown = { { "prettierd", "prettier" } },
 				proto = { "buf" },
 				rust = { "rustfmt" },
 				toml = { "taplo" },
 				yaml = { "yamlfix" },
-				go = { "goimports-reviser", "gofumpt", "gomodifytags" }
+				go = { "goimports-reviser", "gofumpt", "gomodifytags" },
+				zig = { "zigfmt" }
 			}
 		})
 

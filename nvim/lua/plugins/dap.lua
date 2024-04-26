@@ -31,7 +31,7 @@ return {
 		dap_ui.setup()
 
 		for _, language in ipairs({ 'typescript', 'javascript' }) do
-			require('dap').configurations[language] = {
+			dap.configurations[language] = {
 				{
 					{
 						type = 'pwa-node',
@@ -50,6 +50,23 @@ return {
 				},
 			}
 		end
+
+		dap.adapters.lldb = {
+			type = "executable",
+			command = "lldb-vscode",
+			name = "lldb",
+		}
+
+		dap.configurations.zig = {
+			{
+				name = "Launch",
+				type = "lldb",
+				request = "launch",
+				program = "${workspaceFolder}/zig-out/bin/${workspaceFolder}",
+				cwd = "${workspaceFolder}",
+				args = {},
+			}
+		}
 
 		dap.listeners.after.event_initialized['dapui_config'] = function()
 			dap_ui.open()

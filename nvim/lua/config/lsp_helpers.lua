@@ -7,6 +7,13 @@ lsp_helpers.on_attach = function(client, bufnr)
 		vim.api.nvim_buf_set_keymap(bufnr, "n", binding, cmd, opts)
 	end
 
+	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+		vim.lsp.handlers.hover, {
+			border = "single",
+			title = "Hover 📝",
+		}
+	)
+
 	buf_set_keymap("gd", '<cmd>lua vim.lsp.buf.definition()<CR>')
 	buf_set_keymap("K", '<cmd>lua vim.lsp.buf.hover()<CR>')
 	buf_set_keymap("gi", '<cmd>lua vim.lsp.buf.implementation()<CR>')

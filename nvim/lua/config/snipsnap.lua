@@ -255,6 +255,16 @@ return {
 			}
 		)
 	),
+	s(
+		"jsn",
+		fmta([[ console.log("<msg>", JSON.stringify(<val>, null, 2)) <finish> ]],
+			{
+				msg = i(1),
+				val = i(2),
+				finish = i(0),
+			}
+		)
+	),
 	-- s("zp", fmta("if err != nil {\n\treturn <err>\n}", { err = i(1, "err") })),
 })
 
@@ -263,7 +273,9 @@ ls.add_snippets("zig", {
 		"gpa",
 		fmta(
 			[[
-const allocator = std.heap.GeneralPurposeAllocator(.{}){};
+var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+defer _ = gpa.deinit();
+const allocator = gpa.allocator();
 <finish>
 ]],
 			{
@@ -271,5 +283,38 @@ const allocator = std.heap.GeneralPurposeAllocator(.{}){};
 			}
 		)
 	),
-	-- s("zp", fmta("if err != nil {\n\treturn <err>\n}", { err = i(1, "err") })),
+
+	s(
+		"fba",
+		fmta(
+			[[
+var buf: [<len>]<zig_type> = undefined;
+var fba = std.heap.FixedBufferAllocator.init(&buf);
+const allocator = fba.allocator();
+
+const memory = try allocator.alloc(<zig_type>, <len_2>);
+defer allocator.free(memory);
+<finish>
+]],
+			{
+				len = i(1),
+				zig_type = i(2),
+				len_2 = i(3),
+				finish = i(0),
+			}
+		)
+	),
+
+	s(
+		"std",
+		fmta(
+			[[
+const std = @import("std");
+<finish>
+]],
+			{
+				finish = i(0),
+			}
+		)
+	),
 })

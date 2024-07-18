@@ -14,7 +14,7 @@ return {
 		{ '<leader>ra',  ':G rebase --abort' },
 		{ '<leader>rc',  ':G rebase --continue<CR>' },
 		{ '<leader>gfa', ':G fixup -s -S<CR>' },
-		{ '<leader>gC',  ':G commit -S<CR>' },
+		{ '<leader>gC',  ':G commit -S -s<CR>' },
 		{ '<leader>gpx', ':G fixup -s -S<CR> <BAR> :G push-current -f<CR>' },
 	}
 }

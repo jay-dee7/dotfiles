@@ -57,13 +57,13 @@ typescript.setup({
 	on_attach = lsp_helpers.on_attach,
 	settings = {
 		separate_diagnostic_server = true,
-		publish_diagnostic_on = 'insert_leave',
+		publish_diagnostic_on = 'insert_leave', -- other options -> 'insert_leave' | 'change'
 		expose_as_code_action = {
-			'fix_all',
-			'add_missing_imports',
-			'remove_unused',
-			'remove_unused_imports',
-			'organize_imports',
+			"fix_all",
+			"add_missing_imports",
+			"remove_unused",
+			"remove_unused_imports",
+			"organize_imports",
 		},
 		tsserver_path = nil,
 		tsserver_plugins = {},
@@ -92,8 +92,8 @@ typescript.setup({
 		code_lens = 'off',
 		disable_member_code_lens = true,
 		jsx_close_tag = {
-			enable = true,
-			filetypes = { 'javascriptreact', 'typescriptreact', 'svelte' },
+			enable = false,
+			filetypes = { 'svelte' },
 		},
 	},
 })

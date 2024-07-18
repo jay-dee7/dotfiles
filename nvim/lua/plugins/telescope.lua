@@ -19,7 +19,7 @@ return {
 		local lga_actions = require('telescope-live-grep-args.actions')
 		local sorters = require('telescope.sorters')
 		local previewers = require('telescope.previewers')
-		local trouble = require('trouble.providers.telescope')
+		local trouble = require('trouble.sources.telescope')
 		local actions = require('telescope.actions')
 		local extensions = require('telescope').extensions
 		local telescope = require('telescope')
@@ -31,10 +31,10 @@ return {
 				mappings = {
 					i = {
 						['<esc>'] = actions.close,
-						['<c-t>'] = trouble.open_with_trouble,
+						['<c-t>'] = trouble.open,
 					},
 					n = {
-						['<c-t>'] = trouble.open_with_trouble,
+						['<c-t>'] = trouble.open,
 					},
 				},
 				vimgrep_arguments = {
@@ -116,9 +116,6 @@ return {
 					},
 				},
 			},
-			package_info = {
-				theme = "ivy"
-			}
 		})
 
 		monorepo.setup({
@@ -132,7 +129,6 @@ return {
 		telescope.load_extension('gh')
 		telescope.load_extension('monorepo')
 		telescope.load_extension("git_worktree")
-		telescope.load_extension("package_info")
 		telescope.load_extension('harpoon')
 
 		local opts = { noremap = true, silent = true }

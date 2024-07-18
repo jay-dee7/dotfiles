@@ -7,13 +7,6 @@ lsp_helpers.on_attach = function(client, bufnr)
 		vim.api.nvim_buf_set_keymap(bufnr, "n", binding, cmd, opts)
 	end
 
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-		vim.lsp.handlers.hover, {
-			border = "single",
-			title = "Hover 📝",
-		}
-	)
-
 	buf_set_keymap("gd", '<cmd>lua vim.lsp.buf.definition()<CR>')
 	buf_set_keymap("K", '<cmd>lua vim.lsp.buf.hover()<CR>')
 	buf_set_keymap("gi", '<cmd>lua vim.lsp.buf.implementation()<CR>')
@@ -35,7 +28,6 @@ lsp_helpers.on_attach = function(client, bufnr)
 	buf_set_keymap("g]", '<cmd>lua vim.diagnostic.goto_next()<CR>')
 
 	local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
-
 
 	if filetype == 'rust' then
 		buf_set_keymap("gle", "<cmd>lua vim.lsp.codelens.refresh()<CR>")
@@ -153,5 +145,6 @@ base_capabilities.textDocument.foldingRange = {
 	lineFoldingOnly = true,
 }
 lsp_helpers.capabilities = cmp_nvim_lsp.default_capabilities(base_capabilities)
+
 
 return lsp_helpers

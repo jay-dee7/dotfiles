@@ -43,7 +43,7 @@ return {
 				"terraformls",
 				"cssls",
 				"tailwindcss",
-				"svelte",
+				-- "svelte",
 				"eslint",
 				"yamlls",
 				"bufls",

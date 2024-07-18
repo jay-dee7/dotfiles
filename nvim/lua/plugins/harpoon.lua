@@ -53,9 +53,9 @@ return {
 		local harpoon = require("harpoon")
 		harpoon:setup()
 
-		vim.keymap.set("n", "<leader>ma", function() harpoon:list():append() end)
-		vim.keymap.set("n", "<leader>mr", function() harpoon:list():append() end)
-		vim.keymap.set("n", "<leader>mra", function() harpoon:list():append() end)
+		vim.keymap.set("n", "<leader>ma", function() harpoon:list():add() end)
+		vim.keymap.set("n", "<leader>mr", function() harpoon:list():add() end)
+		vim.keymap.set("n", "<leader>mra", function() harpoon:list():add() end)
 
 		-- vim.keymap.set("n", "<leader>ms", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 		vim.keymap.set("n", "<leader>m1", function() harpoon:list():select(1) end)

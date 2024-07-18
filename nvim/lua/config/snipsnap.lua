@@ -265,6 +265,31 @@ return {
 			}
 		)
 	),
+	s(
+		"zcb",
+		fmta([[ z.coerce.boolean() <finish> ]],
+			{
+				finish = i(0),
+			}
+		)
+	),
+	s(
+		"zcd",
+		fmta([[ z.coerce.date() <finish> ]],
+			{
+				finish = i(0),
+			}
+		)
+	),
+	s(
+		"zbo",
+		fmta([[ z.boolean().default(<msg>) <finish> ]],
+			{
+				msg = i(1),
+				finish = i(0),
+			}
+		)
+	),
 	-- s("zp", fmta("if err != nil {\n\treturn <err>\n}", { err = i(1, "err") })),
 })
 

@@ -39,8 +39,10 @@ return {
 					directory_icon = '',
 					fallback_file_icon = ''
 				},
-				column_widths = { .25, .25, .5 }, -- Must add up to 1 after rounding to 2 decimal places
-				highlights = {        -- Highlight groups to use. See `:highlight` or `:h highlight`
+				['0'] = { 0, 0.5, 0.5 },
+				['120'] = { 0.2, 0.3, 0.5 },
+				['200'] = { 0.25, 0.25, 0.5 },
+				highlights = { -- Highlight groups to use. See `:highlight` or `:h highlight`
 					file_names = 'NONE',
 					directory_names = 'NONE',
 				},

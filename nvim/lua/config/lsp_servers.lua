@@ -2,6 +2,17 @@ local lsp_helpers = require('config/lsp_helpers')
 local nvim_lsp = require('lspconfig')
 local typescript = require('typescript-tools')
 
+nvim_lsp.golangci_lint_ls.setup({
+	filetypes = { 'go', 'gomod' },
+	on_attach = lsp_helpers.on_attach,
+	capabilities = lsp_helpers.capabilities,
+})
+
+nvim_lsp.sourcekit.setup({
+	on_attach = lsp_helpers.on_attach,
+	capabilities = lsp_helpers.capabilities,
+})
+
 nvim_lsp.gopls.setup({
 	on_attach = lsp_helpers.on_attach,
 	capabilities = lsp_helpers.capabilities,
@@ -24,7 +35,6 @@ nvim_lsp.gopls.setup({
 			diagnosticsDelay = '200ms',
 			analyses = {
 				unusedparams = true,
-				fieldalignment = true,
 				nilness = true,
 				shadow = true,
 				unusedwrite = true,
@@ -146,7 +156,7 @@ nvim_lsp.yamlls.setup({
 	capabilities = lsp_helpers.capabilities,
 	settings = lsp_helpers.settings.yaml_ls,
 })
-nvim_lsp.bufls.setup({
+nvim_lsp.buf_ls.setup({
 	on_attach = lsp_helpers.on_attach,
 	capabilities = lsp_helpers.capabilities,
 })

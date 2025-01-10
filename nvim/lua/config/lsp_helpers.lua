@@ -1,5 +1,5 @@
 local lsp_helpers = {}
-local cmp_nvim_lsp = require('cmp_nvim_lsp')
+local blink_cmp = require('blink.cmp');
 
 lsp_helpers.on_attach = function(client, bufnr)
 	local function buf_set_keymap(binding, cmd)
@@ -33,6 +33,8 @@ lsp_helpers.on_attach = function(client, bufnr)
 		buf_set_keymap("gle", "<cmd>lua vim.lsp.codelens.refresh()<CR>")
 		buf_set_keymap("glr", "<cmd>lua vim.lsp.codelens.run()<CR>")
 		buf_set_keymap("<leader>rr", ":RustRun<CR>")
+		-- buf_set_keymap("ca", "<cmd>lua vim.cmd.RustLsp('codeAction')<CR>")
+		buf_set_keymap("K", "<cmd>lua vim.cmd.RustLsp({ 'hover', 'actions' })<CR>")
 		-- buf_set_keymap('n', "K", rust_tools.hover_actions.hover_actions, opts)
 		-- buf_set_keymap('n', "ca", rust_tools.code_action_group.code_action_group, opts)
 	end
@@ -41,7 +43,8 @@ lsp_helpers.on_attach = function(client, bufnr)
 		vim.cmd [[autocmd BufEnter,BufNewFile,BufRead <buffer> map <buffer> <leader>fs <cmd>lua require('telescope.builtin').lsp_workspace_symbols { query = vim.fn.input("Query: ") }<cr>]]
 	end
 
-	if filetype == 'typescriptreact'
+
+	local ts_js_ecosystem_ft = filetype == 'typescriptreact'
 		or filetype == 'typescript'
 		or filetype == 'jsx'
 		or filetype == 'tsx'
@@ -52,7 +55,9 @@ lsp_helpers.on_attach = function(client, bufnr)
 		or filetype == "javascrip.jsx"
 		or filetype == "typescript.tsx"
 		or filetype == "vue"
-		or filetype == "astro" then
+		or filetype == "astro"
+
+	if ts_js_ecosystem_ft then
 		client.server_capabilities.document_formatting = true
 		buf_set_keymap("gO", ':TSToolsAddMissingImports<CR>')
 		buf_set_keymap("fa", ':TSToolsFixAll<CR>')
@@ -60,27 +65,15 @@ lsp_helpers.on_attach = function(client, bufnr)
 		buf_set_keymap("rf", ':TSToolsRenameFile<CR>')
 
 
-		vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-			require("ts-error-translator").translate_diagnostics(err, result, ctx, config)
-			vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
-		end
-
-		-- vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-		-- 	vim.lsp.diagnostic.on_publish_diagnostics,
-		-- 	{
-		-- 		underline = true,
-		-- 		virtual_text = {
-		-- 			spacing = 5,
-		-- 			severity_limit = 'Warning',
-		-- 		},
-		-- 		update_in_insert = true,
-		-- 	})
+		-- ---@diagnostic disable-next-line: duplicate-set-field
+		-- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx)
+		-- 	require("ts-error-translator").translate_diagnostics(err, result, ctx)
+		-- 	vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx)
+		-- end
 	end
 
-	-- vim.cmd [[autocmd CursorHold <buffer> lua vim.diagnostic.open_float()]]
 	-- 300ms of no cursor movement to trigger CursorHold
 	vim.cmd [[set updatetime=100]]
-	-- vim.cmd [[set signcolumn=yes]]
 end
 
 lsp_helpers.settings = {
@@ -140,11 +133,12 @@ base_capabilities.textDocument.completion.completionItem.resolveSupport = {
 		'additionalTextEdits',
 	},
 }
+
 base_capabilities.textDocument.foldingRange = {
 	dynamicRegistration = false,
 	lineFoldingOnly = true,
 }
-lsp_helpers.capabilities = cmp_nvim_lsp.default_capabilities(base_capabilities)
 
+lsp_helpers.capabilities = blink_cmp.get_lsp_capabilities(base_capabilities)
 
 return lsp_helpers

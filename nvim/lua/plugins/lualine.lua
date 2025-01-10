@@ -28,12 +28,13 @@ return {
 				component_separators = '',
 				section_separators = '⚡️',
 				theme = 'gruvbox',
-				-- theme = "catppuccin",
+				-- theme = "catppuccin-mocha",
+				-- theme = "rose-pine",
 				icons_enabled = true,
 				refresh = {
-					statusline = 1000,
-					tabline = 1000,
-					winbar = 1000
+					statusline = 200,
+					tabline = 200,
+					winbar = 200
 				}
 			},
 			sections = {
@@ -44,7 +45,7 @@ return {
 				lualine_z = {},
 				-- These will be filled later
 				lualine_c = {},
-				lualine_x = {},
+				lualine_x = { "harpoon2" },
 			},
 			inactive_sections = {
 				-- these are to remove the defaults
@@ -55,7 +56,13 @@ return {
 				lualine_c = {},
 				lualine_x = {},
 			},
-			-- extensions = { 'trouble', 'toggleterm', 'mason', 'lazy', 'fugitive' }
+			extensions = {
+				'trouble',
+				'toggleterm',
+				'mason',
+				'lazy',
+				'fugitive',
+			}
 		}
 
 		-- Inserts a component in lualine_c at left section
@@ -103,7 +110,7 @@ return {
 			sources = { 'nvim_diagnostic', 'nvim_lsp', 'nvim_workspace_diagnostic' },
 			sections = { 'error', 'warn', 'info', 'hint' },
 			symbols = { error = '❌', warn = ' ', info = '🍀', hint = '💡' },
-			colored = true,
+			colored = false,
 		}
 
 		-- Insert mid section. You can make any number of sections in neovim :)
@@ -132,11 +139,13 @@ return {
 				return msg
 			end,
 			icon = ' LSP:',
-			color = { fg = '#ffffff', gui = 'bold' },
+			color = { gui = 'bold' },
 		}
 
-		ins_left {
-			'searchcount'
+		ins_right {
+			'searchcount',
+			maxcount = 999,
+			timeout = 500,
 		}
 
 		ins_right {
@@ -166,12 +175,12 @@ return {
 			symbols = { added = ' ', modified = '柳 ', removed = ' ' },
 		}
 
-		ins_right {
-			function()
-				return '▊'
-			end,
-			padding = { left = 1 },
-		}
+		-- ins_right {
+		-- 	function()
+		-- 		return '▊'
+		-- 	end,
+		-- 	padding = { left = 1 },
+		-- }
 
 		lualine.setup(config)
 	end

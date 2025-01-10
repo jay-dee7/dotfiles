@@ -5,6 +5,7 @@ return {
 	},
 	config = function()
 		local highlight_undo = require('highlight-undo')
+
 		highlight_undo.setup({
 			duration = 100,
 			undo = {

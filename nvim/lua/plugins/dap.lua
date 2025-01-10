@@ -13,6 +13,7 @@ return {
 		local dap_virtual_text = require('nvim-dap-virtual-text')
 
 		vim.keymap.set('n', '<leader>dc', dap.continue)
+		vim.keymap.set('n', '<leader>d?', function() dap_ui.eval(nil, { enter = true }) end)
 		vim.keymap.set('n', '<leader>ds', dap.step_over)
 		vim.keymap.set('n', '<leader>dS', dap.step_out)
 		vim.keymap.set('n', '<leader>di', dap.step_into)
@@ -29,27 +30,6 @@ return {
 		dap_virtual_text.setup()
 		dap_go.setup()
 		dap_ui.setup()
-
-		for _, language in ipairs({ 'typescript', 'javascript' }) do
-			dap.configurations[language] = {
-				{
-					{
-						type = 'pwa-node',
-						request = 'launch',
-						name = 'Launch file',
-						program = '${file}',
-						cwd = '${workspaceFolder}',
-					},
-					{
-						type = 'pwa-node',
-						request = 'attach',
-						name = 'Attach',
-						processId = require('dap.utils').pick_process,
-						cwd = '${workspaceFolder}',
-					},
-				},
-			}
-		end
 
 		dap.adapters.lldb = {
 			type = "executable",
@@ -68,8 +48,11 @@ return {
 			}
 		}
 
-		dap.listeners.after.event_initialized['dapui_config'] = function()
-			dap_ui.open()
+		dap.listeners.before.attach.dapui_config = function()
+			dap_ui.open();
+		end
+		dap.listeners.before.launch.dapui_config = function()
+			dap_ui.open();
 		end
 		dap.listeners.before.event_terminated['dapui_config'] = function()
 			dap_ui.close()

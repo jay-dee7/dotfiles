@@ -43,10 +43,10 @@ return {
 				"terraformls",
 				"cssls",
 				"tailwindcss",
-				-- "svelte",
+				"svelte",
 				"eslint",
 				"yamlls",
-				"bufls",
+				"buf_ls",
 				"sqlls",
 				"taplo",
 				"clangd",
@@ -59,7 +59,6 @@ return {
 				-- 'prettier',
 				-- 'jq',
 				-- 'gomodifytags',
-				-- 'buf',
 			},
 		})
 

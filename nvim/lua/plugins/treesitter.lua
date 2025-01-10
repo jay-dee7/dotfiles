@@ -12,7 +12,12 @@ return {
 		"nushell/tree-sitter-nu",
 	},
 	config = function()
-		require('nvim-treesitter.configs').setup({
+		local ts_ctx        = require('treesitter-context')
+		local ts_configs    = require('nvim-treesitter.configs');
+		local ts_parsers    = require('nvim-treesitter.parsers')
+		local parser_config = ts_parsers.get_parser_configs()
+
+		ts_configs.setup({
 			ensure_installed = {
 				'go',
 				'gomod',
@@ -133,7 +138,7 @@ return {
 			},
 		})
 
-		require('treesitter-context').setup({
+		ts_ctx.setup({
 			enable = true,
 			max_lines = 0,
 			min_window_height = 0,
@@ -145,7 +150,7 @@ return {
 			zindex = 20,
 			on_attach = nil,
 		})
-		local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+
 		parser_config.tsx.filetype_to_parsername = { 'javascript', 'typescript.tsx', 'ts' }
 		parser_config.hcl.filetype_to_parsername = { 'hcl', 'tf' }
 		parser_config.just = {

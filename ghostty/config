@@ -1,10 +1,10 @@
-# Catppuccin
-# background = 07010b
-# foreground = CDD6F4
+auto-update-channel = tip
+auto-update = check
 
-# gruvbox
-background = 0f1011
-foreground = ebdbb2
+theme = "GruvboxDarkHard"
+window-theme = "dark"
+# theme = "rose-pine"
+# theme = "catppuccin-mocha"
 
 keybind = super+p=text:\x01n
 keybind = super+shift+p=text:\x01p
@@ -16,20 +16,22 @@ keybind = super+left=text:\x01\x1b\x5b\x44
 keybind = super+d=text:\x01%
 keybind = super+shift+d=text:\x01-
 
-window-theme = "dark"
+background-opacity = 1
+# background-opacity = 0.7
 confirm-close-surface = false
 copy-on-select = clipboard
 macos-option-as-alt = true
-macos-non-native-fullscreen = true
-mouse-hide-while-typing = true
+macos-non-native-fullscreen = false
+mouse-hide-while-typing = false
 shell-integration = none
 cursor-style = block
 cursor-style-blink = true
 clipboard-read = "allow"
 clipboard-paste-protection = false
 window-decoration = false
+window-padding-x = 8
 
-font-family = "JetBrainsMono Nerd Font"
+font-family = "JetBrainsMono Nerd Font Mono"
 font-size = 15
 font-feature = zero
 font-feature = ss01
@@ -40,59 +42,3 @@ font-feature = ss05
 font-feature = ss06
 font-feature = calt
 font-feature = liga
-
-# Colors can be changed by setting the 16 colors of `palette`, which each color
-# being defined as regular and bold.
-#
-# black
-palette = 8=#282828
-palette = 0=#928374
-# red
-palette = 9=#cc241d
-palette = 1=#fb4934
-# green
-palette = 10=#98971a
-palette = 2=#b8bb26
-# yellow
-palette = 11=#d79921
-palette = 3=#fabd2f
-# blue
-palette = 12=#458588
-palette = 4=#83a598
-# purple
-palette = 13=#b16286
-palette = 5=#d3869b
-# aqua
-palette = 14=#689d6a
-palette = 6=#8ec07c
-# white
-palette = 15=#a89984
-palette = 7=#ebdbb2
-
-
-# Catppuccin Mocha Theme 
-# black
-# palette = 8=#45475A
-# palette = 0=#585B70
-# red
-# palette = 9=#F38BA8
-# palette = 1=#F38BA8
-# green
-# palette = 10=#A6E3A1
-# palette = 2=#A6E3A1
-# yellow
-# palette = 11=#F9E2AF
-# palette = 3=#F9E2AF
-# blue
-# palette = 12=#89B4FA
-# palette = 4=#89B4FA
-# purple
-# palette = 13=#F5C2E7
-# palette = 5=#F5C2E7
-# aqua
-# palette = 14=#94E2D5
-# palette = 6=#94E2D5
-# white
-# palette = 15=#BAC2DE
-# palette = 7=#A6ADC8
-

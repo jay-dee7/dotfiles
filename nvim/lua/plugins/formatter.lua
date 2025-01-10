@@ -8,25 +8,25 @@ return {
 			notify_on_error = true,
 			formatters_by_ft = {
 				lua = { "stylua" },
-				-- svelte = { { "prettierd", "prettier" } },
-				javascript = { { "prettierd", "prettier" } },
-				typescript = { { "prettierd", "prettier" } },
-				css = { { "prettierd", "prettier" } },
-				scss = { { "prettierd", "prettier" } },
-				-- json = { { "prettierd", "prettier" } },
-				-- markdown = { { "prettierd", "prettier" } },
+				svelte = { "prettierd", "prettier", stop_after_first = true },
+				javascript = { "prettierd", "prettier", stop_after_first = true },
+				typescript = { "prettierd", "prettier", stop_after_first = true },
+				css = { "prettierd", "prettier", stop_after_first = true },
+				scss = { "prettierd", "prettier", stop_after_first = true },
+				json = { "prettierd", "prettier", stop_after_first = true },
+				markdown = { "prettierd", "prettier", stop_after_first = true },
 				proto = { "buf" },
 				rust = { "rustfmt" },
 				toml = { "taplo" },
 				yaml = { "yamlfix" },
-				go = { "goimports-reviser", "gofumpt", "gomodifytags" },
-				zig = { "zigfmt" }
+				go = { "goimports-reviser", "gofumpt", "gomodifytags", "goimports", stop_after_first = false, },
+				zig = { "zigfmt", timeout_ms = 15000, lsp_format = "last" }
 			}
 		})
 
 		-- Command for manually format
 		vim.keymap.set({ "n", "v" }, "<leader>F",
-			function() conform.format({ lsp_fallback = true, async = true, timeout_ms = 5000, }) end,
+			function() conform.format({ lsp_fallback = true, async = true, timeout_ms = 1000, }) end,
 			{ desc = "format current file" })
 
 		vim.keymap.set({ "n", "v" }, "<leader>FL", function() print(vim.inspect(conform.list_formatters(0))) end,
@@ -39,7 +39,7 @@ return {
 				conform.format({
 					lsp_fallback = true,
 					async = false,
-					timeout_ms = 500,
+					timeout_ms = 750,
 				})
 			end
 		})

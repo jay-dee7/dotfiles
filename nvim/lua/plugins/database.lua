@@ -1,37 +1,42 @@
 return {
-	'kristijanhusak/vim-dadbod-ui',
-	dependencies = {
-		'tpope/vim-dadbod',
-		{ 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'plsql' }, lazy = true },
-
+	{
+		'kristijanhusak/vim-dadbod-ui',
+		lazy = false,
+		dependencies = {
+			{ 'tpope/vim-dadbod',                     lazy = true },
+			{ 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'plsql' }, lazy = true },
+		},
+		cmd = {
+			'DBUI',
+			'DBUIToggle',
+			'DBUIAddConnection',
+			'DBUIFindBuffer',
+		},
+		-- keys = {
+		-- 	{ '<leader>du', ':DBUIToggle<CR>' },
+		-- },
+		config = function()
+			vim.g.db_ui_save_location = vim.fn.stdpath "config" .. require("plenary.path").path.sep .. "db_ui"
+			vim.g.db_ui_use_nerd_fonts = 1
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = {
+					"sql",
+				},
+				command = [[setlocal omnifunc=vim_dadbod_completion#omni]],
+			})
+			vim.keymap.set('n', '<leader>du', '<cmd>DBUIToggle<CR>')
+		end
 	},
-	cmd = {
-		'DBUI',
-		'DBUIToggle',
-		'DBUIAddConnection',
-		'DBUIFindBuffer',
-	},
-	config = function()
-		vim.g.db_ui_save_location = vim.fn.stdpath "config" .. require("plenary.path").path.sep .. "db_ui"
-		vim.g.db_ui_use_nerd_fonts = 1
-
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = {
-				"sql",
+	{
+		'saghen/blink.cmp',
+		opts = {
+			sources = {
+				-- add vim-dadbod-completion to your completion providers
+				default = { "lsp", "luasnip", "path", "buffer", "dadbod" },
+				providers = {
+					dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+				},
 			},
-			command = [[setlocal omnifunc=vim_dadbod_completion#omni]],
-		})
-
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = {
-				"sql",
-				"plsql",
-			},
-			callback = function()
-				vim.schedule(function()
-					require("cmp").setup.buffer { sources = { { name = "vim-dadbod-completion" } } }
-				end)
-			end
-		})
-	end
+		},
+	}
 }

@@ -1,5 +1,7 @@
 return {
 	'codethread/qmk.nvim',
+	lazy = true,
+	ft = { 'keymap', },
 	config = function()
 		local qmk = require('qmk')
 		qmk.setup({

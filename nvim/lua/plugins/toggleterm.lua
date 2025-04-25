@@ -18,7 +18,7 @@ return {
 			persist_size = true,
 			direction = 'float',
 			close_on_exit = true,
-			shell = vim.o.shell,
+			shell = '/opt/homebrew/bin/nu',
 			highlights = {
 				border = 'Normal',
 				background = 'Normal',

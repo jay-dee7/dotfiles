@@ -1,17 +1,38 @@
-hs.hotkey.bind({ "alt" }, "Space", function()
-	hs.application.enableSpotlightForNameSearches(true)
-	local alacritty = hs.application.get("Alacritty")
+hs.loadSpoon("ReloadConfiguration")
+spoon.ReloadConfiguration:start()
 
-	if alacritty == nil then
-		hs.application.launchOrFocus("Alacritty")
+hs.hotkey.bind({ "alt" }, "M", function()
+	hs.application.enableSpotlightForNameSearches(true)
+	local spotify = hs.application.get("Spotify")
+
+	if spotify == nil then
+		hs.application.launchOrFocus("Spotify")
 		return
 	end
 
-	if alacritty ~= nil then
-		if alacritty:isFrontmost() then
-			alacritty:hide()
+	if spotify ~= nil then
+		if spotify:isFrontmost() then
+			spotify:hide()
 		else
-			hs.application.launchOrFocus("/Applications/Alacritty.app")
+			hs.application.launchOrFocus("/Applications/Spotify.app")
+		end
+	end
+end)
+
+hs.hotkey.bind({ "alt" }, "D", function()
+	hs.application.enableSpotlightForNameSearches(true)
+	local discord = hs.application.get("Discord")
+
+	if discord == nil then
+		hs.application.launchOrFocus("Discord")
+		return
+	end
+
+	if discord ~= nil then
+		if discord:isFrontmost() then
+			discord:hide()
+		else
+			hs.application.launchOrFocus("/Applications/Discord.app")
 		end
 	end
 end)
@@ -73,20 +94,20 @@ hs.hotkey.bind({ "alt" }, "S", function()
 	end
 end)
 
-hs.hotkey.bind({ "alt" }, "D", function()
+hs.hotkey.bind({ "alt" }, "Space", function()
 	hs.application.enableSpotlightForNameSearches(true)
-	local discord = hs.application.get("Discord")
+	local ghostty = hs.application.get("Ghostty")
 
-	if discord == nil then
-		hs.application.launchOrFocus("Discord")
+	if ghostty == nil then
+		hs.application.launchOrFocus("Ghostty")
 		return
 	end
 
-	if discord ~= nil then
-		if discord:isFrontmost() then
-			discord:hide()
+	if ghostty ~= nil then
+		if ghostty:isFrontmost() then
+			ghostty:hide()
 		else
-			hs.application.launchOrFocus("/Applications/Discord.app")
+			hs.application.launchOrFocus("/Applications/Ghostty.app")
 		end
 	end
 end)
@@ -109,20 +130,20 @@ hs.hotkey.bind({ "alt" }, "R", function()
 	end
 end)
 
-hs.hotkey.bind({ "alt" }, "M", function()
+hs.hotkey.bind({ "alt" }, "N", function()
 	hs.application.enableSpotlightForNameSearches(true)
-	local spotify = hs.application.get("Spotify")
+	local arc = hs.application.get("Obsidian")
 
-	if spotify == nil then
-		hs.application.launchOrFocus("Spotify")
+	if arc == nil then
+		hs.application.launchOrFocus("Obsidian")
 		return
 	end
 
-	if spotify ~= nil then
-		if spotify:isFrontmost() then
-			spotify:hide()
+	if arc ~= nil then
+		if arc:isFrontmost() then
+			arc:hide()
 		else
-			hs.application.launchOrFocus("/Applications/Spotify.app")
+			hs.application.launchOrFocus("/Applications/Obsidian.app")
 		end
 	end
 end)

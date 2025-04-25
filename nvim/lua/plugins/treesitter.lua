@@ -9,7 +9,7 @@ return {
 		'nvim-treesitter/nvim-treesitter-context',
 		'nvim-treesitter/nvim-treesitter-refactor',
 		'IndianBoy42/tree-sitter-just',
-		"nushell/tree-sitter-nu",
+		-- "nushell/tree-sitter-nu",
 	},
 	config = function()
 		local ts_ctx        = require('treesitter-context')
@@ -60,6 +60,8 @@ return {
 				'tmux',
 				'nix',
 				'nu',
+				'helm',
+				'gotmpl',
 			},
 			auto_pairs = {
 				enable = true,

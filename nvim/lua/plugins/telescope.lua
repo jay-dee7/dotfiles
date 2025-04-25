@@ -58,8 +58,8 @@ return {
 				layout_strategy = 'vertical',
 				layout_config = {
 					vertical = {
-						width = 0.85,
-						height = 0.75,
+						width = 0.80,
+						height = 0.70,
 						prompt_position = "bottom",
 						mirror = false,
 						preview_width = 1,

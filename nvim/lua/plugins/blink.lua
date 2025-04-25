@@ -1,5 +1,6 @@
 return {
 	'saghen/blink.cmp',
+	version = 'v0.12.4',
 	enalbed = true,
 	event = { 'LspAttach' },
 	build = 'cargo build --release',
@@ -14,11 +15,17 @@ return {
 				-- Integration w/ nvim-cmp
 			end,
 		},
+		{
+			"edte/blink-go-import.nvim",
+			ft = "go",
+			config = function()
+				require("blink-go-import").setup()
+			end
+		}
 	},
 	opts_extend = { "sources.default", },
 	config = function()
 		local blink = require('blink.cmp');
-		local luasnip = require('luasnip');
 		require("luasnip.loaders.from_vscode").lazy_load()
 
 		blink.setup({
@@ -44,41 +51,14 @@ return {
 					'fallback'
 				},
 				['<S-Tab>'] = { 'snippet_backward', 'fallback' },
-
-				-- cmdline = {
-				-- 	['<Tab>'] = {
-				-- 		function(cmp)
-				-- 			if cmp.snippet_active() then
-				-- 				return cmp.accept()
-				-- 			else
-				-- 				return cmp.select_and_accept()
-				-- 			end
-				-- 		end,
-				-- 		'snippet_forward',
-				-- 		'fallback'
-				-- 	},
-				-- 	['<S-Tab>'] = { 'select_and_accept', 'snippet_backward', 'fallback' },
-				-- 	['<Up>'] = { 'select_prev', 'fallback' },
-				-- 	['<Down>'] = { 'select_next', 'fallback' },
-				-- }
 			},
 			snippets = {
 				preset = 'luasnip'
-				-- expand = function(snippet) luasnip.lsp_expand(snippet) end,
-				-- active = function(filter)
-				-- 	if filter and filter.direction then
-				-- 		return luasnip.jumpable(filter.direction)
-				-- 	end
-				-- 	return luasnip.in_snippet()
-				-- end,
-				-- jump = function(direction) luasnip.jump(direction) end,
 			},
 
 			completion = {
 				keyword = {
 					range = 'prefix',
-					-- regex = '[-_]\\|\\k',
-					-- exclude_from_prefix_regex = '[\\-]',
 				},
 
 				list = {
@@ -92,14 +72,7 @@ return {
 							return ctx.mode ~= 'cmdline'
 						end,
 						auto_insert = function(ctx) return ctx.mode == 'cmdline' end,
-
-						-- auto_insert = function(ctx)
-						-- 	return ctx.mode == 'cmdline';
-						-- end,
 					},
-					-- selection = function(ctx)
-					-- 	return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect'
-					-- end,
 					-- Controls how the completion items are selected
 					-- 'preselect' will automatically select the first item in the completion list
 					-- 'manual' will not select any item by default
@@ -192,11 +165,31 @@ return {
 				},
 			},
 
-			sources = {
-				default = { "lsp", "snippets", "path", "buffer", "cmdline" },
-				cmdline = function()
+			cmdline = {
+				enabled = true,
+				keymap = nil, -- Inherits from top level `keymap` config when not set
+				sources = function()
 					return vim.fn.getcmdtype() == ':' and { 'cmdline' } or {}
 				end,
+				completion = {
+					trigger = {
+						show_on_blocked_trigger_characters = {},
+						show_on_x_blocked_trigger_characters = nil, -- Inherits from top level `completion.trigger.show_on_blocked_trigger_characters` config when not set
+					},
+					menu = {
+						auto_show = nil, -- Inherits from top level `completion.menu.auto_show` config when not set
+						draw = {
+							columns = { { 'label', 'label_description', gap = 1 } },
+						},
+					}
+				}
+			},
+
+			sources = {
+				default = { "lsp", "snippets", "go_pkgs", "path", "buffer", "cmdline", },
+				-- cmdline = function()
+				-- 	return vim.fn.getcmdtype() == ':' and { 'cmdline' } or {}
+				-- end,
 				transform_items = function(_, items)
 					for _, item in ipairs(items) do
 						if item.kind == require('blink.cmp.types').CompletionItemKind.Snippet then
@@ -207,23 +200,24 @@ return {
 				end,
 				providers = {
 					-- dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
-					-- luasnip = {
-					-- 	name = 'luasnip',
-					-- 	module = 'blink.compat.source',
-					-- 	score_offset = -3,
-					-- 	opts = {
-					-- 		use_show_condition = false,
-					-- 		show_autosnippets = true,
-					-- 	},
+					-- cmdline = {
+					-- 	name = 'cmdline',
+					--
+					-- 	module = 'blink.cmp.cmdline.sources',
+					-- 	max_items = 48,
+					-- 	async = false,
+					-- 	should_show_items = true,
 					-- },
-					cmdline = {
-						name = 'cmdline',
-						module = 'blink.cmp.sources.cmdline',
-						max_items = 48,
-						async = false,
-						should_show_items = true,
-					},
-				}
+					go_pkgs = {
+						module = "blink-go-import",
+						name = "Import",
+					}
+				},
+				min_keyword_length = function(ctx)
+					-- only applies when typing a command, doesn't apply to arguments
+					if ctx.mode == 'cmdline' and string.find(ctx.line, ' ') == nil then return 3 end
+					return 0
+				end
 			},
 
 			appearance = {

@@ -1,3 +1,4 @@
+vim.opt.shell = '/opt/homebrew/bin/nu'
 vim.opt.background = 'dark'
 vim.opt.termguicolors = true
 vim.opt.colorcolumn = '120'
@@ -69,7 +70,20 @@ vim.filetype.add({
 	pattern = {
 		[".?env.?.*"] = "conf",
 		[".dev.vars"] = "conf",
+		["config"] = "conf",
+		["*kube/config"] = "yaml",
 	}
+})
+
+vim.filetype.add({
+	extension = {
+		gotmpl = 'gotmpl',
+	},
+	pattern = {
+		[".*/templates/.*%.tpl"] = "helm",
+		[".*/templates/.*%.ya?ml"] = "helm",
+		["helmfile.*%.ya?ml"] = "helm",
+	},
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {

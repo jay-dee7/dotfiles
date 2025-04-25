@@ -40,11 +40,11 @@ nvim_lsp.gopls.setup({
 				unusedwrite = true,
 			},
 			staticcheck = true,
-			annotations = {
-				bounds = true,
-				escape = true,
-				inline = true,
-			},
+			-- annotations = {
+			-- 	bounds = true,
+			-- 	escape = true,
+			-- 	inline = true,
+			-- },
 		},
 	},
 	init_options = {
@@ -193,6 +193,7 @@ nvim_lsp.zls.setup({
 })
 
 nvim_lsp.terraformls.setup({
+	filetypes = { 'hcl', 'tf', 'terraform' },
 	on_attach = lsp_helpers.on_attach,
 	capabilities = lsp_helpers.capabilities,
 })

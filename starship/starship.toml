@@ -1,7 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 add_newline = true
-
+command_timeout = 700
 [package]
 format = """
 $username\
@@ -81,18 +81,15 @@ format = 'via [🤖 $version](bold green) '
 detect_extensions = ['js', 'mjs', 'cjs', 'ts', 'mts', 'cts', 'svelte']
 
 [rust]
-format = "via [🦀 $version](red bold)"
+format = "via [🦀 $version](red bold) "
 
 [c]
-format = 'via [$name $version]($style)'
+format = 'via [$name $version]($style) '
 
 [zig]
-symbol = '🦎 '
+symbol = '[🦎](green bold) '
 
 [status]
 disabled = false
 format = '[\[$symbol$common_meaning$signal_name$maybe_int\]]($style) '
 map_symbol = true
-
-[buf]
-symbol = '🦬 '

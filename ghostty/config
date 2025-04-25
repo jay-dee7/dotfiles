@@ -2,6 +2,7 @@ auto-update-channel = tip
 auto-update = check
 
 theme = "GruvboxDarkHard"
+# theme = "GruvboxLight"
 window-theme = "dark"
 # theme = "rose-pine"
 # theme = "catppuccin-mocha"
@@ -15,6 +16,13 @@ keybind = super+right=text:\x01\x1b\x5b\x43
 keybind = super+left=text:\x01\x1b\x5b\x44
 keybind = super+d=text:\x01%
 keybind = super+shift+d=text:\x01-
+confirm-close-surface = always
+window-save-state = always
+command = /opt/homebrew/bin/nu ~/.config/ghostty/tmux-startup.nu
+# command = /opt/homebrew/bin/nu ~/.config/ghostty/tmux-startup.nu
+# command = /opt/homebrew/bin/nu ~/.config/ghostty/tmux-startup.nu
+# command = /opt/homebrew/bin/tmux
+# command = /opt/homebrew/bin/nu --config=~/.config/nushell/config.nu -c tmux
 
 background-opacity = 1
 # background-opacity = 0.7
@@ -29,7 +37,7 @@ cursor-style-blink = true
 clipboard-read = "allow"
 clipboard-paste-protection = false
 window-decoration = false
-window-padding-x = 8
+window-padding-x = 6
 
 font-family = "JetBrainsMono Nerd Font Mono"
 font-size = 15

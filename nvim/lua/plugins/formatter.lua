@@ -18,10 +18,13 @@ return {
 				proto = { "buf" },
 				rust = { "rustfmt" },
 				toml = { "taplo" },
-				yaml = { "yamlfix" },
-				go = { "goimports-reviser", "gofumpt", "gomodifytags", "goimports", stop_after_first = false, },
+				yaml = { "yamlfmt" },
+				go = { "goimports-reviser", "gofumpt", "gomodifytags", "goimports", stop_after_first = false, timeout_ms = 15000 },
 				zig = { "zigfmt", timeout_ms = 15000, lsp_format = "last" }
-			}
+			},
+			default_format_opts = {
+				lsp_format = "fallback",
+			},
 		})
 
 		-- Command for manually format

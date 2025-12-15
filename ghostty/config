@@ -1,8 +1,7 @@
 auto-update-channel = tip
 auto-update = check
 
-theme = "GruvboxDarkHard"
-# theme = "GruvboxLight"
+theme = "Gruvbox Dark Hard"
 window-theme = "dark"
 # theme = "rose-pine"
 # theme = "catppuccin-mocha"
@@ -24,8 +23,9 @@ command = /opt/homebrew/bin/nu ~/.config/ghostty/tmux-startup.nu
 # command = /opt/homebrew/bin/tmux
 # command = /opt/homebrew/bin/nu --config=~/.config/nushell/config.nu -c tmux
 
+mouse-scroll-multiplier = 8
+scrollback-limit = 8388608
 background-opacity = 1
-# background-opacity = 0.7
 confirm-close-surface = false
 copy-on-select = clipboard
 macos-option-as-alt = true
@@ -36,11 +36,11 @@ cursor-style = block
 cursor-style-blink = true
 clipboard-read = "allow"
 clipboard-paste-protection = false
-window-decoration = false
+macos-titlebar-style = hidden
+window-decoration = none
 window-padding-x = 6
-
 font-family = "JetBrainsMono Nerd Font Mono"
-font-size = 15
+font-size = 14
 font-feature = zero
 font-feature = ss01
 font-feature = ss02

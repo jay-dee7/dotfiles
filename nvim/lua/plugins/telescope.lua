@@ -3,17 +3,15 @@ return {
 	dependencies = {
 		{ 'nvim-lua/plenary.nvim' },
 		{ 'nvim-lua/popup.nvim' },
-		{ 'nvim-telescope/telescope-github.nvim' },
-		{ 'nvim-telescope/telescope-project.nvim' },
 		{ 'nvim-telescope/telescope-ui-select.nvim' },
 		{ 'nvim-telescope/telescope-rg.nvim' },
 		{ 'nvim-telescope/telescope-file-browser.nvim' },
 		{ 'nvim-telescope/telescope-dap.nvim' },
 		{ 'nvim-telescope/telescope-live-grep-args.nvim' },
 		-- { 'nvim-telescope/telescope-fzf-native.nvim',    build = 'make' },
-		{ 'imNel/monorepo.nvim' },
 		{ 'ThePrimeagen/git-worktree.nvim' },
-		{ 'natecraddock/telescope-zf-native.nvim' }
+		{ 'natecraddock/telescope-zf-native.nvim' },
+		{ 'nvim-telescope/telescope-media-files.nvim' },
 	},
 	config = function()
 		local builtin = require('telescope.builtin')
@@ -25,7 +23,6 @@ return {
 		local extensions = require('telescope').extensions
 		local telescope = require('telescope')
 		local fb_actions = extensions.file_browser.actions
-		local monorepo = require('monorepo')
 
 		telescope.setup({
 			defaults = {
@@ -59,8 +56,8 @@ return {
 				layout_config = {
 					vertical = {
 						width = 0.80,
-						height = 0.70,
-						prompt_position = "bottom",
+						height = 0.75,
+						prompt_position = 'bottom',
 						mirror = false,
 						preview_width = 1,
 						preview_height = 0.7,
@@ -77,7 +74,7 @@ return {
 						preview_cutoff = 120,
 					},
 				},
-				file_ignore_patterns = { '.idea/*', 'cpu.pprof', '*.prof', '.kvstore', 'vendor', 'node_modules', },
+				file_ignore_patterns = { '.idea/*', 'cpu.pprof', '*.prof', '.kvstore', 'vendor', 'node_modules' },
 				winblend = 0,
 				-- border = {},
 				-- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
@@ -98,7 +95,7 @@ return {
 				-- 	override_file_sorter = true, -- override the file sorter
 				-- 	case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
 				-- },
-				["zf-native"] = {
+				['zf-native'] = {
 					-- options for sorting file-like items
 					file = {
 						-- override default telescope file sorter
@@ -136,12 +133,13 @@ return {
 					},
 				},
 				file_browser = {
+					-- hijack_netrw = true,
 					mappings = {
 						['i'] = {
-							['<C-R>'] = fb_actions.create,
+							['<C-R>'] = fb_actions.rename,
 						},
 						['n'] = {
-							['<C-R>'] = fb_actions.create,
+							['<C-R>'] = fb_actions.rename,
 						},
 					},
 				},
@@ -154,22 +152,21 @@ return {
 						['<C-l>t'] = lga_actions.quote_prompt({ postfix = ' -t' }),
 					},
 				},
+				media_files = {
+					filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf' },
+					find_cmd = 'rg',
+				},
 			},
 		})
 
-		monorepo.setup({
-			autoload_telescope = false,
-		})
-
 		-- telescope.load_extension('fzf')
-		telescope.load_extension("zf-native")
+		telescope.load_extension('zf-native')
 		telescope.load_extension('ui-select')
 		telescope.load_extension('file_browser')
 		telescope.load_extension('live_grep_args')
-		telescope.load_extension('gh')
-		telescope.load_extension('monorepo')
-		telescope.load_extension("git_worktree")
+		telescope.load_extension('git_worktree')
 		telescope.load_extension('harpoon')
+		telescope.load_extension('media_files')
 
 		local opts = { noremap = true, silent = true }
 
@@ -177,6 +174,9 @@ return {
 		vim.keymap.set('n', '<leader>fg', builtin.lsp_definitions, opts)
 		vim.keymap.set('n', '<leader>jm', builtin.diagnostics, opts)
 		vim.keymap.set('n', '<leader>ji', builtin.lsp_implementations, opts)
+
+		-- Telescope file operations (move, rm, etc)
+		-- vim.keymap.set('n', '<leader>rn', function() fb_actions.rename() end, opts)
 
 		-- Regular Telescope magic
 		vim.keymap.set('n', '<leader>tr', extensions.live_grep_args.live_grep_args, opts)
@@ -186,19 +186,15 @@ return {
 		vim.keymap.set('n', '<C-f>', builtin.find_files, opts)
 		vim.keymap.set('n', '<leader>sd', builtin.diagnostics, opts)
 		vim.keymap.set('n', '<leader>sh', builtin.search_history, { noremap = true, silent = true })
-		vim.keymap.set('n', '<leader>ps', function() builtin.grep_string({ search = vim.fn.input('Grep> ') }) end)
+		vim.keymap.set('n', '<leader>ps', function()
+			builtin.grep_string({ search = vim.fn.input('Grep> ') })
+		end)
 
-		-- Telescope Extensions
-		vim.keymap.set('n', '<leader>jis', extensions.gh.issues, { noremap = true, silent = true })
-		vim.keymap.set('n', '<leader>jpl', extensions.gh.pull_request, { noremap = true, silent = true })
-		vim.keymap.set('n', '<leader>jgi', extensions.gh.gist, { noremap = true, silent = true })
-		vim.keymap.set('n', '<leader>gar', extensions.gh.run, { noremap = true, silent = true })
 		-- vim.keymap.set('n', '<leader>ms', extensions.harpoon.marks, { noremap = true, silent = true })
 
 		-- Telescope Git Stuff
 		vim.keymap.set('n', '<leader>jc', builtin.git_commits, { noremap = true, silent = true })
 		vim.keymap.set('n', '<leader>jb', builtin.git_branches, { noremap = true, silent = true })
 		vim.keymap.set('n', '<leader>js', builtin.git_status, { noremap = true, silent = true })
-		vim.keymap.set('n', '<leader>mt', monorepo.toggle_project, { noremap = true, silent = true })
 	end,
 }

@@ -1,48 +1,78 @@
 local lsp_helpers = {}
-local blink_cmp = require('blink.cmp');
 
 lsp_helpers.on_attach = function(client, bufnr)
 	local function buf_set_keymap(binding, cmd)
-		local opts = { noremap = true, silent = true }
-		vim.api.nvim_buf_set_keymap(bufnr, "n", binding, cmd, opts)
+		local opts = { buffer = bufnr, noremap = true, silent = true }
+		vim.keymap.set("n", binding, cmd, opts)
+		-- vim.api.nvim_buf_set_keymap(event.buf, 'n', binding, cmd, opts)
 	end
 
-	buf_set_keymap("gd", '<cmd>lua vim.lsp.buf.definition()<CR>')
-	buf_set_keymap("K", '<cmd>lua vim.lsp.buf.hover()<CR>')
-	buf_set_keymap("gi", '<cmd>lua vim.lsp.buf.implementation()<CR>')
-	buf_set_keymap("<c-k>", '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-	buf_set_keymap("1gd", '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-	buf_set_keymap("gr", '<cmd>lua vim.lsp.buf.references()<CR>')
-	buf_set_keymap("ca", '<cmd>lua vim.lsp.buf.code_action()<CR>')
-	buf_set_keymap("g0", '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-	buf_set_keymap("gW", '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-	buf_set_keymap("gD", '<cmd>lua vim.lsp.buf.declaration()<CR>')
-	buf_set_keymap("rn", '<cmd>lua vim.lsp.buf.rename()<CR>')
-	buf_set_keymap("FF", '<cmd>lua vim.lsp.buf.format()<CR>')
-	buf_set_keymap("gld", '<cmd>lua lsp_ext.workspace.diagnostic").set_qf_list()<CR>')
+	buf_set_keymap('gd', vim.lsp.buf.definition)
+	buf_set_keymap('K', vim.lsp.buf.hover)
+	buf_set_keymap('gi', vim.lsp.buf.implementation)
+	buf_set_keymap('<c-k>', vim.lsp.buf.signature_help)
+	buf_set_keymap('1gd', vim.lsp.buf.type_definition)
+	buf_set_keymap('gr', vim.lsp.buf.references)
+	buf_set_keymap('ca', vim.lsp.buf.code_action)
+	buf_set_keymap('g0', vim.lsp.buf.document_symbol)
+	buf_set_keymap('gW', vim.lsp.buf.workspace_symbol)
+	buf_set_keymap('gD', vim.lsp.buf.declaration)
+	buf_set_keymap('rn', vim.lsp.buf.rename)
+	buf_set_keymap('FF', vim.lsp.buf.format)
+	-- buf_set_keymap('gld', '<cmd>lua lsp_ext.workspace.diagnostic").set_qf_list()<CR>')
 	--- " Show diagnostic popup on cursor hold
 	--- " Goto previous/next diagnostic warning/error
 	--- " have a fixed column for the diagnostics to appear in
 	--- " this removes the jitter when warnings/errors flow in
-	buf_set_keymap("g[", '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-	buf_set_keymap("g]", '<cmd>lua vim.diagnostic.goto_next()<CR>')
+	buf_set_keymap('g[', function()
+		vim.diagnostic.jump({
+			count = -1,
+			on_jump = function()
+				vim.diagnostic.open_float({
+					cursorpos = true, -- Show float at the cursor position
+					scope = "cursor", -- Only show the float for the diagnostic under the cursor
+					-- Add other float options as needed
+				})
+			end
+		})
+	end)
+	buf_set_keymap('g]', function()
+		vim.diagnostic.jump({
+			count = 1,
+			on_jump = function()
+				vim.diagnostic.open_float({
+					cursorpos = true, -- Show float at the cursor position
+					scope = "cursor", -- Only show the float for the diagnostic under the cursor
+					-- Add other float options as needed
+				})
+			end
+		})
+	end)
 
 	local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
 
 	if filetype == 'rust' then
-		buf_set_keymap("gle", "<cmd>lua vim.lsp.codelens.refresh()<CR>")
-		buf_set_keymap("glr", "<cmd>lua vim.lsp.codelens.run()<CR>")
-		buf_set_keymap("<leader>rr", ":RustRun<CR>")
+		-- vim.diagnostic.config({ virtual_text = true, virtual_lines = true, })
+		-- if not vim.lsp.inlay_hint.is_enabled() then
+		-- 	vim.lsp.inlay_hint.enable(true)
+		-- end
+		-- vim.lsp.inlay_hint.enable(true);
+		buf_set_keymap('gd', vim.lsp.buf.definition)
+		buf_set_keymap('gle', vim.lsp.codelens.refresh)
+		buf_set_keymap('glr', vim.lsp.codelens.run)
+		buf_set_keymap('<leader>rr', ':RustRun<CR>')
 		-- buf_set_keymap("ca", "<cmd>lua vim.cmd.RustLsp('codeAction')<CR>")
-		buf_set_keymap("K", "<cmd>lua vim.cmd.RustLsp({ 'hover', 'actions' })<CR>")
+		buf_set_keymap('K', function() vim.cmd.RustLsp({ 'hover', 'actions' }) end)
 		-- buf_set_keymap('n', "K", rust_tools.hover_actions.hover_actions, opts)
 		-- buf_set_keymap('n', "ca", rust_tools.code_action_group.code_action_group, opts)
+		-- ['textDocument/inlayHint'] = function() end
 	end
 	if filetype == 'go' then
 		-- vim.cmd [[autocmd BufWritePre <buffer> :lua require('config.helpers').goimports(2000)]]
-		vim.cmd [[autocmd BufEnter,BufNewFile,BufRead <buffer> map <buffer> <leader>fs <cmd>lua require('telescope.builtin').lsp_workspace_symbols { query = vim.fn.input("Query: ") }<cr>]]
+		vim.cmd(
+			[[autocmd BufEnter,BufNewFile,BufRead <buffer> map <buffer> <leader>fs <cmd>lua require('telescope.builtin').lsp_workspace_symbols { query = vim.fn.input("Query: ") }<cr>]]
+		)
 	end
-
 
 	local ts_js_ecosystem_ft = filetype == 'typescriptreact'
 		or filetype == 'typescript'
@@ -51,113 +81,23 @@ lsp_helpers.on_attach = function(client, bufnr)
 		or filetype == 'js'
 		or filetype == 'ts'
 		or filetype == 'javascriptreact'
-		or filetype == "javascript"
-		or filetype == "javascrip.jsx"
-		or filetype == "typescript.tsx"
-		or filetype == "vue"
-		or filetype == "astro"
+		or filetype == 'javascript'
+		or filetype == 'javascrip.jsx'
+		or filetype == 'typescript.tsx'
+		or filetype == 'vue'
+		or filetype == 'astro'
 
 	if ts_js_ecosystem_ft then
-		client.server_capabilities.document_formatting = true
-		buf_set_keymap("gO", ':TSToolsAddMissingImports<CR>')
-		buf_set_keymap("fa", ':TSToolsFixAll<CR>')
-		buf_set_keymap("ru", ':TSToolsRemoveUnusedImports<CR>')
-		buf_set_keymap("rf", ':TSToolsRenameFile<CR>')
-
-
-		-- ---@diagnostic disable-next-line: duplicate-set-field
-		-- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx)
-		-- 	require("ts-error-translator").translate_diagnostics(err, result, ctx)
-		-- 	vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx)
-		-- end
+		-- client.server_capabilities.document_formatting = true
+		buf_set_keymap('gO', ':TSToolsAddMissingImports<CR>')
+		buf_set_keymap('fa', ':TSToolsFixAll<CR>')
+		buf_set_keymap('ru', ':TSToolsRemoveUnusedImports<CR>')
+		buf_set_keymap('rf', ':TSToolsRenameFile<CR>')
+		buf_set_keymap('gD', ':TSToolsGoToSourceDefinition<CR>')
 	end
 
 	-- 300ms of no cursor movement to trigger CursorHold
-	vim.cmd [[set updatetime=100]]
+	vim.cmd([[set updatetime=100]])
 end
-
-lsp_helpers.settings = {
-	lua_ls = {
-		Lua = {
-			diagnostics = {
-				globals = {
-					-- vim
-					"vim",
-					"hs",
-
-					-- Busted
-					"describe",
-					"it",
-					"before_each",
-					"after_each",
-					"teardown",
-					"pending",
-					"clear",
-
-					-- Colorbuddy
-					"Color",
-					"c",
-					"Group",
-					"g",
-					"s",
-
-					-- Custom
-					"RELOAD",
-				},
-			},
-			workspace = {
-				-- Make the server aware of Neovim runtime files
-				library = {
-					vim.api.nvim_get_runtime_file("", true),
-					string.format('%s/.hammerspoon/Spoons/EmmyLua.spoon/annotations', os.getenv 'HOME'),
-				}
-			},
-		},
-	},
-	yaml_ls = {
-		yaml = {
-			keyOrdering = false,
-			schemas = {
-				kubernetes = "*.{k8s.yaml,k8s.yml,yml,yaml}",
-				-- ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/master-standalone-strict/all.json"] =
-				-- "*.{k8s.yaml,k8s.yml,yaml,yml}",
-				["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
-				["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
-				["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
-				["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
-				["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
-				["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
-				["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
-				["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
-				["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] =
-				"*api*.{yml,yaml}",
-				["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] =
-				"*docker-compose*.{yml,yaml}",
-				["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] =
-				"*flow*.{yml,yaml}",
-			},
-		}
-	},
-	zls = {
-		cmd = os.getenv("HOME") .. "/oss/zig/zls/zig-out/bin/zls"
-	}
-}
-
-local base_capabilities = vim.lsp.protocol.make_client_capabilities()
-base_capabilities.textDocument.completion.completionItem.snippetSupport = true
-base_capabilities.textDocument.completion.completionItem.resolveSupport = {
-	properties = {
-		'documentation',
-		'detail',
-		'additionalTextEdits',
-	},
-}
-
-base_capabilities.textDocument.foldingRange = {
-	dynamicRegistration = false,
-	lineFoldingOnly = true,
-}
-
-lsp_helpers.capabilities = blink_cmp.get_lsp_capabilities(base_capabilities)
 
 return lsp_helpers

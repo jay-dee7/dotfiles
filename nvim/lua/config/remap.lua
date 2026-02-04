@@ -33,7 +33,10 @@ vim.keymap.set('n', '<leader>TT', '<cmd>Ttoggle<CR>', { remap = false })
 vim.keymap.set('n', '<leader>a', '<cmd>cclose<CR>')
 
 vim.keymap.set('n', '<leader>S', function()
-	vim.lsp.stop_client(vim.lsp.get_clients())
+	local clients = vim.lsp.get_clients()
+	for _, client in pairs(clients) do
+		client:stop()
+	end
 end)
 
 -- nmap<leader>gj :diffget //3<CR>

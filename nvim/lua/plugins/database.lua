@@ -1,43 +1,47 @@
 return {
-	{
-		'kristijanhusak/vim-dadbod-ui',
-		lazy = false,
-		dependencies = {
-			{ 'tpope/vim-dadbod',                     lazy = true },
-			{ 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'plsql' }, lazy = true },
-		},
-		cmd = {
-			'DBUI',
-			'DBUIToggle',
-			'DBUIAddConnection',
-			'DBUIFindBuffer',
-		},
-		-- keys = {
-		-- 	{ '<leader>du', ':DBUIToggle<CR>' },
-		-- },
-		config = function()
-			vim.g.db_ui_save_location = vim.fn.stdpath "config" .. require("plenary.path").path.sep .. "db_ui"
-			vim.g.db_ui_use_nerd_fonts = 1
-
-			-- vim.api.nvim_create_autocmd("FileType", {
-			-- 	pattern = {
-			-- 		"sql",
-			-- 	},
-			-- 	command = [[setlocal omnifunc=vim_dadbod_completion#omni]],
-			-- })
-			vim.keymap.set('n', '<leader>du', '<cmd>DBUIToggle<CR>')
-		end
+	'kristijanhusak/vim-dadbod-ui',
+	lazy = true,
+	dependencies = {
+		{ 'tpope/vim-dadbod',                     lazy = true },
+		{ 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'plsql' }, lazy = true },
+		{ 'hrsh7th/nvim-cmp',                     ft = { 'sql', 'plsql' }, lazy = true },
 	},
-	{ -- optional saghen/blink.cmp completion source
-		'saghen/blink.cmp',
-		opts = {
-			sources = {
-				-- add vim-dadbod-completion to your completion providers
-				default = { "lsp", "snippets", "go_pkgs", "path", "buffer", "cmdline", "dadbod", },
-				providers = {
-					dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
-				},
+	cmd = {
+		'DBUI',
+		'DBUIToggle',
+		'DBUIAddConnection',
+		'DBUIFindBuffer',
+	},
+	config = function()
+		-- Set up nvim-cmp.
+		local cmp = require('cmp')
+		vim.g.db_ui_save_location = vim.fn.stdpath('config') .. require('plenary.path').path.sep .. 'db_ui'
+		vim.g.db_ui_use_nerd_fonts = 1
+
+		cmp.setup({
+			enabled = function()
+				return vim.bo.filetype == 'sql' or vim.bo.filetype == 'plsql'
+			end,
+			window = {
+				completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
 			},
-		},
-	}
+			mapping = cmp.mapping.preset.insert({
+				['<C-p>'] = cmp.mapping.select_prev_item(),
+				['<C-n>'] = cmp.mapping.select_next_item(),
+				['<C-d>'] = cmp.mapping.scroll_docs(-4),
+				['<C-f>'] = cmp.mapping.scroll_docs(4),
+				['<C-Space>'] = cmp.mapping.complete(),
+				['<C-y>'] = cmp.mapping.confirm({
+					behavior = cmp.ConfirmBehavior.Select,
+					select = false,
+				}),
+				['<C-e>'] = cmp.mapping.close(),
+				['<CR>'] = cmp.mapping.confirm({ select = true }),
+			}),
+			sources = cmp.config.sources({
+				{ name = 'vim-dadbod-completion' },
+			}),
+		})
+	end,
 }

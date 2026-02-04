@@ -27,7 +27,7 @@ return {
 				border = 'curved',
 				winblend = 5,
 				width = function()
-					return math.floor(vim.o.columns * 0.80)
+					return math.floor(vim.o.columns * 0.85)
 				end,
 				height = function()
 					return math.floor(vim.o.lines * 0.55)

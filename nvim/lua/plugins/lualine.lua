@@ -30,6 +30,7 @@ return {
 				theme = 'gruvbox',
 				-- theme = "catppuccin-mocha",
 				-- theme = "rose-pine",
+				-- theme = "kanagawa",
 				icons_enabled = true,
 				refresh = {
 					statusline = 200,
@@ -45,7 +46,7 @@ return {
 				lualine_z = {},
 				-- These will be filled later
 				lualine_c = {},
-				lualine_x = { "harpoon2" },
+				lualine_x = { "harpoon2", },
 			},
 			inactive_sections = {
 				-- these are to remove the defaults
@@ -168,6 +169,7 @@ return {
 		ins_right {
 			'branch',
 			icon = '',
+			max_length = vim.o.columns * 2 / 3
 		}
 
 		ins_right {

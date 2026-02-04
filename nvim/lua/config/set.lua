@@ -1,3 +1,5 @@
+vim.loader.enable()
+vim.opt.splitright = true
 vim.opt.shell = '/opt/homebrew/bin/nu'
 vim.opt.background = 'dark'
 vim.opt.termguicolors = true
@@ -22,7 +24,7 @@ vim.opt.scrolloff = 16
 vim.opt.signcolumn = 'yes'
 vim.opt.updatetime = 50
 vim.opt.encoding = 'UTF-8'
-vim.opt.guifont = ':JetBrainsMono Nerd Font Mono:h15'
+vim.opt.guifont = ':JetBrainsMono Nerd Font Mono:h14'
 vim.opt.virtualedit = 'all'
 vim.opt.diffopt = { 'internal,filler,closeoff,vertical' }
 vim.opt.ttyfast = true
@@ -59,7 +61,8 @@ vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', { undercurl = true })
 vim.api.nvim_set_hl(0, 'DiagnosticUnderline', { undercurl = true })
 vim.api.nvim_set_hl(0, 'DiagnosticUnderline', { undercurl = true })
 vim.opt.isfname:append('@-@')
-vim.lsp.set_log_level("off")
+vim.lsp.log.set_level('off')
+vim.g.omni_sql_no_default_maps = 1
 
 vim.filetype.add({
 	extension = {
@@ -68,11 +71,12 @@ vim.filetype.add({
 		keymap = 'c',
 	},
 	pattern = {
-		[".?env.?.*"] = "conf",
-		[".dev.vars"] = "conf",
-		["config"] = "conf",
-		["*kube/config"] = "yaml",
-	}
+		['.?env.?.*'] = 'conf',
+		['.dev.vars'] = 'conf',
+		['config'] = 'conf',
+		['*kube/config'] = 'yaml',
+		['*kube/config*'] = 'yaml',
+	},
 })
 
 vim.filetype.add({
@@ -80,14 +84,14 @@ vim.filetype.add({
 		gotmpl = 'gotmpl',
 	},
 	pattern = {
-		[".*/templates/.*%.tpl"] = "helm",
-		[".*/templates/.*%.ya?ml"] = "helm",
-		["helmfile.*%.ya?ml"] = "helm",
+		['.*/templates/.*%.tpl'] = 'helm',
+		['.*/templates/.*%.ya?ml'] = 'helm',
+		['helmfile.*%.ya?ml'] = 'helm',
 	},
 })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "dbout", "qf" },
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+	pattern = { 'dbout', 'qf' },
 	callback = function()
 		vim.o.colorcolumn = ''
 	end,

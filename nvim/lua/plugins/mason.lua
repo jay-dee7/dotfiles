@@ -1,34 +1,27 @@
 return {
 	'williamboman/mason.nvim',
-	build = ":MasonUpdate",
+	build = ':MasonUpdate',
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
-		"neovim/nvim-lspconfig",
+		'williamboman/mason-lspconfig.nvim',
+		'neovim/nvim-lspconfig',
 		-- 'jose-elias-alvarez/typescript.nvim',
 		{
-			"pmizio/typescript-tools.nvim",
-			dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+			'pmizio/typescript-tools.nvim',
+			dependencies = { 'nvim-lua/plenary.nvim' },
 			opts = {},
-		},
-		'simrat39/rust-tools.nvim',
-		{
-			'saecki/crates.nvim',
-			dependencies = {
-				'nvim-lua/plenary.nvim'
-			}
 		},
 	},
 	config = function()
-		local mason = require("mason");
-		local mason_config = require("mason-lspconfig")
+		local mason = require('mason')
+		local mason_config = require('mason-lspconfig')
 		mason.setup({
 			ui = {
 				icons = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗"
+					package_installed = '✓',
+					package_pending = '➜',
+					package_uninstalled = '✗',
 				},
-				border = "none"
+				border = 'none',
 			},
 			max_concurrent_installers = 8,
 		})
@@ -36,20 +29,19 @@ return {
 		mason_config.setup({
 			ensure_installed = {
 				-- LSP Servers
-				"lua_ls",
-				"rust_analyzer",
-				"gopls",
-				"jsonls",
-				"terraformls",
-				"cssls",
-				"tailwindcss",
-				"svelte",
-				"eslint",
-				"yamlls",
-				"buf_ls",
-				"sqlls",
-				"taplo",
-				"clangd",
+				'lua_ls',
+				'gopls',
+				'jsonls',
+				'terraformls',
+				'cssls',
+				'tailwindcss',
+				'svelte',
+				'eslint',
+				'yamlls',
+				'buf_ls',
+				'taplo',
+				'clangd',
+				'pyright',
 
 				-- Formatters
 				-- 'yamlfix',
@@ -62,16 +54,15 @@ return {
 			},
 		})
 
-		vim.cmd [[set shortmess+=c]]
-		vim.o.completeopt = "menu,menuone,noselect"
+		vim.cmd([[set shortmess+=c]])
+		vim.o.completeopt = 'menu,menuone,noselect'
 		vim.diagnostic.config({
 			virtual_text = {
 				source = 'always',
 			},
-			float = {
+			on_jump = {
 				source = 'always',
 			},
 		})
-		require('crates').setup({})
-	end
+	end,
 }
